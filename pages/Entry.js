@@ -6,24 +6,14 @@ import customTheme from '../customTheme'
 import Home from './tabbars/Home'
 import ShopCart from './tabbars/ShopCart'
 import Me from './tabbars/Me'
-
-export default class Main extends Component {
+//入口Tab页导航
+export default class Entry extends Component {
     state = {
-        selectedTab: 'homeTab',
-    }
-
-    renderContent(pageText) {
-        return (
-            <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}}>
-                <Text style={{margin: 50}}>{pageText}</Text>
-            </View>
-        );
+        selectedTab: 'homeTab'
     }
 
     onChangeTab(tabName) {
-        this.setState({
-            selectedTab: tabName,
-        });
+        this.setState({selectedTab: tabName})
     }
 
     render() {
