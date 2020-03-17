@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {AppLoading} from 'expo'
 import * as Font from 'expo-font'
+import {Router, Scene, Stack} from 'react-native-router-flux'
 import Main from './pages/Main'
 
 export default class App extends Component {
@@ -29,8 +30,12 @@ export default class App extends Component {
         if (!this.state.isReady) {
             return <AppLoading/>
         }
-        return (
-            <Main></Main>
-        )
+        return <Router sceneStyle={{backgroundColor: 'white'}}>
+            <Stack key="root">
+                {/*第一个 Scene 就是默认要展示的首页*/}
+                {/*key 属性，表示路由的规则名称，将来可以使用这个 key ，进行编程式导航，每一个路由规则，都应该提供一个 唯一的key， key不能重复*/}
+                <Scene key="main" component={Main} title="" hideNavBar={true}/>
+            </Stack>
+        </Router>
     }
 }

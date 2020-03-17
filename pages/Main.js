@@ -34,28 +34,28 @@ export default class Main extends Component {
                 >
                     <TabBar.Item
                         title="首页"
-                        icon={<Icon name="home" color="red"/>}
+                        icon={<Icon name="home"/>}
                         selected={this.state.selectedTab === 'blueTab'}
                         onPress={() => this.onChangeTab('blueTab')}
                     >
-                        {this.renderContent('Life Tab')}
+                        {this.renderContent('首页')}
                     </TabBar.Item>
                     <TabBar.Item
-                        icon={<Icon name="ordered-list" color="red"/>}
+                        icon={<Icon name="ordered-list"/>}
                         title="购物车"
-                        badge={2}
+                        badge={20}
                         selected={this.state.selectedTab === 'redTab'}
                         onPress={() => this.onChangeTab('redTab')}
                     >
-                        {this.renderContent('Koubei Tab')}
+                        {this.renderContent('购物车')}
                     </TabBar.Item>
                     <TabBar.Item
-                        icon={<Icon name="user" color="red"/>}
+                        icon={<Icon name="user"/>}
                         title="我的"
                         selected={this.state.selectedTab === 'yellowTab'}
                         onPress={() => this.onChangeTab('yellowTab')}
                     >
-                        {this.renderContent('My Tab')}
+                        {this.renderContent('我的')}
                     </TabBar.Item>
                 </TabBar>
             </Provider>

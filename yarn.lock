@@ -922,6 +922,13 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@egjs/hammerjs@^2.0.17":
+  version "2.0.17"
+  resolved "https://registry.npmjs.org/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"
+  integrity sha512-XQsZgjm2EcVUiZQf11UBJQfmZeEmOW8DpI1gsFeln6w0ae0ii4dMQEQ0kjl6DspdWX1aGY1/loyXnP0JS06e/A==
+  dependencies:
+    "@types/hammerjs" "^2.0.36"
+
 "@expo/vector-icons@^10.0.2":
   version "10.0.6"
   resolved "https://registry.npmjs.org/@expo/vector-icons/-/vector-icons-10.0.6.tgz#5718953ff0b97827d11dae5787976fa8ce5caaed"
@@ -1150,6 +1157,11 @@
   version "2.0.32"
   resolved "https://registry.npmjs.org/@types/fbemitter/-/fbemitter-2.0.32.tgz#8ed204da0f54e9c8eaec31b1eec91e25132d082c"
   integrity sha1-jtIE2g9U6cjq7DGx7skeJRMtCCw=
+
+"@types/hammerjs@^2.0.36":
+  version "2.0.36"
+  resolved "https://registry.npmjs.org/@types/hammerjs/-/hammerjs-2.0.36.tgz#17ce0a235e9ffbcdcdf5095646b374c2bf615a4c"
+  integrity sha512-7TUK/k2/QGpEAv/BCwSHlYu3NXZhQ9ZwBYpzr9tjlPIL2C5BeGhH3DmVavRx3ZNyELX5TLC91JTz/cen6AAtIQ==
 
 "@types/invariant@^2.2.29":
   version "2.2.31"
@@ -4444,6 +4456,16 @@ react-native-collapsible@^1.4.0:
   dependencies:
     prop-types "^15.6.2"
 
+react-native-gesture-handler@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-1.6.0.tgz#e9a4e1d0c7ac21eb0d6b6ec013e73f9c0c33a629"
+  integrity sha512-KulGCWKTxa6xBpPP4LWEPmmLqBqOe2jbtdlILOVF/dR4EgImiaBVrKdOHeRMyMzJOYAWxs5uDZsyA8hgSsm+lw==
+  dependencies:
+    "@egjs/hammerjs" "^2.0.17"
+    hoist-non-react-statics "^2.3.1"
+    invariant "^2.2.4"
+    prop-types "^15.7.2"
+
 react-native-modal-popover@^0.0.12:
   version "0.0.12"
   resolved "https://registry.npmjs.org/react-native-modal-popover/-/react-native-modal-popover-0.0.12.tgz#5c0b5e9e0323490c3c5867821fc94b6582bfa3dc"
@@ -4452,6 +4474,11 @@ react-native-modal-popover@^0.0.12:
     "@types/prop-types" "^15.5.5"
     lodash.debounce "^4.0.8"
     prop-types "^15.6.2"
+
+react-native-reanimated@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-1.7.0.tgz#896db2576552ac59d288a1f6c7f00afc171f240c"
+  integrity sha512-FQWSqP605eQVJumuK2HpR+7heF0ZI+qfy4jNguv3Xv8nPFHeIgZaRTXHCEQL2AcuSIj50zy8jGJf5l134QMQWQ==
 
 react-native-router-flux@^4.2.0:
   version "4.2.0"
@@ -4483,6 +4510,13 @@ react-native-safe-area-view@^0.14.8:
   integrity sha512-MtRSIcZNstxv87Jet+UsPhEd1tpGe8cVskDXlP657x6rHpSrbrc+y13ZNXrwAgGNNhqQNX7UJT68ZIq//ZRmvw==
   dependencies:
     hoist-non-react-statics "^2.3.1"
+
+react-native-screens@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/react-native-screens/-/react-native-screens-2.3.0.tgz#fd2b0c841f4fdebb2937c0e84acccc62bf9ebb22"
+  integrity sha512-b+zazYedHPZoDzeKOE4RF/rPpJX8AAITazZCsVFUtw5Qn2QNHvAi0xbzWvQFNgqfvET0TLuu8F2HfBDh1WSqdQ==
+  dependencies:
+    debounce "^1.2.0"
 
 react-native-swipeout@^2.3.6:
   version "2.3.6"
