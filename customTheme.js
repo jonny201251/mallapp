@@ -1,3 +1,5 @@
+//https://stackoverflow.com/questions/58603998/customize-theme-in-ant-design-mobile-react-native
+
 const brandPrimary = '#108ee9';
 const brandPrimaryTap = '#1284d6';
 
