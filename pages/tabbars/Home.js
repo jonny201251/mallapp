@@ -1,10 +1,22 @@
 import React, {Component} from 'react'
-import {Text, View} from 'react-native'
+import {View, Alert} from 'react-native'
+import {SearchBar} from "@ant-design/react-native"
 
 export default class Home extends Component {
+    state = {
+        value: ''
+    }
+
     render() {
-        return <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}}>
-            <Text style={{margin: 50}}>首页</Text>
+        return <View style={{margin: 10}}>
+            <SearchBar
+                value={this.state.value}
+                placeholder="搜索"
+                onSubmit={value => Alert.alert(value)}
+                onCancel={() => this.setState({value: ''})}
+                onChange={value => this.setState({value})}
+                showCancelButton
+            />
         </View>
     }
 }
