@@ -65,11 +65,13 @@ export default class Home extends Component {
                             <TouchableHighlight underlayColor="#fff" onPress={() => {
                                 Actions.itemDetail({spuId: item.spuId})
                             }}>
-                                <Image source={{uri: item.image}}
-                                       style={{width: '99.8%', height: 180}}/>
+                                <View>
+                                    <Image source={{uri: item.image}}
+                                           style={{width: '99.8%', height: 180}}/>
+                                    <Text>{item.title}</Text>
+                                    <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
+                                </View>
                             </TouchableHighlight>
-                            <Text>{item.title}</Text>
-                            <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
                         </Flex.Item>
 
                     }
@@ -83,11 +85,13 @@ export default class Home extends Component {
                             <TouchableHighlight underlayColor="#fff" onPress={() => {
                                 Actions.itemDetail({spuId: item.spuId})
                             }}>
-                                <Image source={{uri: item.image}}
-                                       style={{width: '99.8%', height: 180}}/>
+                                <View>
+                                    <Image source={{uri: item.image}}
+                                           style={{width: '99.8%', height: 180}}/>
+                                    <Text>{item.title}</Text>
+                                    <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
+                                </View>
                             </TouchableHighlight>
-                            <Text>{item.title}</Text>
-                            <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
                         </Flex.Item>
 
                     }
