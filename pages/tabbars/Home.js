@@ -18,16 +18,20 @@ export default class Home extends Component {
         //轮播数据
         fetch(hostPath + '/app/lunbo')
             .then(res => res.json())
-            .then(resp => {this.setState({images: resp.data})})
+            .then(resp => {
+                this.setState({images: resp.data})
+            })
 
         this.getItem()
     }
 
     //商品列表数据
     getItem = () => {
-        fetch(hostPath + '/spu?currentPage=' + this.state.currentPage + '&pageSize=' + this.state.pageSize)
+        fetch(hostPath + '/app/spu?currentPage=' + this.state.currentPage + '&pageSize=' + this.state.pageSize)
             .then(res => res.json())
-            .then(resp => this.setState({items: resp.data}))
+            .then(resp => {
+                this.setState({items: resp.data})
+            })
     }
 
     render() {
@@ -51,29 +55,27 @@ export default class Home extends Component {
                     </View>
                 })}
             </Carousel>
-            <Text/>
-            <Flex>
-                {this.state.images.map((item, index) => {
+            <Flex style={{marginTop: 10}}>
+                {this.state.items.map((item, index) => {
                     if (index < 2) {
                         return <Flex.Item style={{paddingLeft: 4, paddingRight: 4}}>
                             <Image source={{uri: item.image}}
                                    style={{width: '99.8%', height: 180}}/>
-                            <Text>标题</Text>
-                            <Text>价格</Text>
+                            <Text>{item.title}</Text>
+                            <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
                         </Flex.Item>
                     }
 
                 })}
             </Flex>
-            <Text/>
-            <Flex>
-                {this.state.images.map((item, index) => {
-                    if (index < 2) {
+            <Flex style={{marginTop: 10}}>
+                {this.state.items.map((item, index) => {
+                    if (index > 1) {
                         return <Flex.Item style={{paddingLeft: 4, paddingRight: 4}}>
                             <Image source={{uri: item.image}}
                                    style={{width: '99.8%', height: 180}}/>
-                            <Text>标题</Text>
-                            <Text>价格</Text>
+                            <Text>{item.title}</Text>
+                            <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
                         </Flex.Item>
                     }
 
