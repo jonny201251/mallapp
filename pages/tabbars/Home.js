@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View, Alert, Text, Image, TouchableHighlight} from 'react-native'
+import {View, Alert, Text, Image, TouchableHighlight, FlatList} from 'react-native'
 import {Actions} from 'react-native-router-flux'
 import {SearchBar, Carousel, Grid, Flex, WhiteSpace, WingBlank, Button} from "@ant-design/react-native"
 import Constants from '../../utils/constants'
@@ -12,7 +12,9 @@ export default class Home extends Component {
         images: [],
         currentPage: 1,
         pageSize: 4,
-        items: []
+        totalPage: 0,
+        items: [],
+        refreshing:false
     }
 
     componentWillMount() {
@@ -22,7 +24,11 @@ export default class Home extends Component {
             .then(resp => {
                 this.setState({images: resp.data})
             })
-
+        fetch(hostPath + '/app/totalPage?currentPage=' + this.state.currentPage + '&pageSize=' + this.state.pageSize)
+            .then(res => res.json())
+            .then(resp => {
+                this.setState({totalPage: resp.data})
+            })
         this.getItem()
     }
 
@@ -33,6 +39,15 @@ export default class Home extends Component {
             .then(resp => {
                 this.setState({items: resp.data})
             })
+    }
+    // 加载下一页
+    loadNextPage = () => {
+        console.warn("loadNextPage")
+        // 如果下一页的页码值，大于总页数了，直接return
+        if ((this.state.currentPage + 1) > this.state.totalPage) {
+            return
+        }
+        this.setState({refreshing: true, currentPage: this.state.currentPage + 1}, () => this.getItem())
     }
 
     render() {
@@ -58,46 +73,32 @@ export default class Home extends Component {
                     </TouchableHighlight>
                 })}
             </Carousel>
-            <Flex style={{marginTop: 10}}>
-                {this.state.items.map((item, index) => {
-                    if (index < 2) {
-                        return <Flex.Item style={{paddingLeft: 4, paddingRight: 4}}>
-                            <TouchableHighlight underlayColor="#fff" onPress={() => {
-                                Actions.itemDetail({spuId: item.spuId})
-                            }}>
-                                <View>
-                                    <Image source={{uri: item.image}}
-                                           style={{width: '99.8%', height: 180}}/>
-                                    <Text>{item.title}</Text>
-                                    <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
-                                </View>
-                            </TouchableHighlight>
-                        </Flex.Item>
+            <FlatList
+                style={{marginTop: 10}}
+                data={this.state.items}
+                numColumns={2} // 一行2个
+                renderItem={({item}) => <ItemView item={item}/>}
+                onEndReachedThreshold={0.5} // 距离底部还有多远的时候，触发加载更多的事件
+                onEndReached={this.loadNextPage} // 当距离不足 0.5 的时候，触发这个方法，加载下一页数据
+            />
+        </View>
+    }
+}
 
-                    }
-
-                })}
-            </Flex>
-            <Flex style={{marginTop: 10}}>
-                {this.state.items.map((item, index) => {
-                    if (index > 1) {
-                        return <Flex.Item style={{paddingLeft: 4, paddingRight: 4}}>
-                            <TouchableHighlight underlayColor="#fff" onPress={() => {
-                                Actions.itemDetail({spuId: item.spuId})
-                            }}>
-                                <View>
-                                    <Image source={{uri: item.image}}
-                                           style={{width: '99.8%', height: 180}}/>
-                                    <Text>{item.title}</Text>
-                                    <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
-                                </View>
-                            </TouchableHighlight>
-                        </Flex.Item>
-
-                    }
-
-                })}
-            </Flex>
+class ItemView extends Component {
+    render() {
+        let item = this.props.item
+        return <View style={{flex: 1, padding: 5, backgroundColor: '#F8F8F8'}}>
+            <TouchableHighlight underlayColor="#fff" onPress={() => {
+                Actions.itemDetail({spuId: item.spuId})
+            }}>
+                <View>
+                    <Image source={{uri: item.image}}
+                           style={{width: '100%', height: 180}}/>
+                    <Text>{item.title}</Text>
+                    <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
+                </View>
+            </TouchableHighlight>
         </View>
     }
 }
