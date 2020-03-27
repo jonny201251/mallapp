@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {View, Alert, Text, Image, TouchableHighlight} from 'react-native'
+import {Actions} from 'react-native-router-flux'
 import {SearchBar, Carousel, Grid, Flex, WhiteSpace, WingBlank, Button} from "@ant-design/react-native"
 import Constants from '../../utils/constants'
 
@@ -49,21 +50,28 @@ export default class Home extends Component {
                 infinite
             >
                 {this.state.images.map((item, i) => {
-                    return <View key={i}>
+                    return <TouchableHighlight underlayColor="#fff" onPress={() => {
+                        Actions.itemDetail({spuId: item.spuId})
+                    }}>
                         <Image source={{uri: item.image}}
                                style={{width: '99.8%', height: 180}}/>
-                    </View>
+                    </TouchableHighlight>
                 })}
             </Carousel>
             <Flex style={{marginTop: 10}}>
                 {this.state.items.map((item, index) => {
                     if (index < 2) {
                         return <Flex.Item style={{paddingLeft: 4, paddingRight: 4}}>
-                            <Image source={{uri: item.image}}
-                                   style={{width: '99.8%', height: 180}}/>
+                            <TouchableHighlight underlayColor="#fff" onPress={() => {
+                                Actions.itemDetail({spuId: item.spuId})
+                            }}>
+                                <Image source={{uri: item.image}}
+                                       style={{width: '99.8%', height: 180}}/>
+                            </TouchableHighlight>
                             <Text>{item.title}</Text>
                             <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
                         </Flex.Item>
+
                     }
 
                 })}
@@ -72,11 +80,16 @@ export default class Home extends Component {
                 {this.state.items.map((item, index) => {
                     if (index > 1) {
                         return <Flex.Item style={{paddingLeft: 4, paddingRight: 4}}>
-                            <Image source={{uri: item.image}}
-                                   style={{width: '99.8%', height: 180}}/>
+                            <TouchableHighlight underlayColor="#fff" onPress={() => {
+                                Actions.itemDetail({spuId: item.spuId})
+                            }}>
+                                <Image source={{uri: item.image}}
+                                       style={{width: '99.8%', height: 180}}/>
+                            </TouchableHighlight>
                             <Text>{item.title}</Text>
                             <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
                         </Flex.Item>
+
                     }
 
                 })}

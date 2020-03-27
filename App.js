@@ -3,6 +3,7 @@ import {AppLoading} from 'expo'
 import * as Font from 'expo-font'
 import {Router, Scene, Stack} from 'react-native-router-flux'
 import Entry from './pages/Entry'
+import ItemDetail from "./pages/ItemDetail"
 
 export default class App extends Component {
     state = {
@@ -35,6 +36,7 @@ export default class App extends Component {
                 {/*第一个 Scene 就是默认要展示的首页*/}
                 {/*key 属性，表示路由的规则名称，将来可以使用这个 key ，进行编程式导航，每一个路由规则，都应该提供一个 唯一的key， key不能重复*/}
                 <Scene key="entry" component={Entry} hideNavBar={true}/>
+                <Scene key="itemDetail" component={ItemDetail} title="商品详情页"/>
             </Stack>
         </Router>
     }
