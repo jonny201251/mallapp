@@ -14,7 +14,6 @@ export default class Home extends Component {
         pageSize: 4,
         totalPage: 0,
         items: [],
-        refreshing:false
     }
 
     componentWillMount() {
@@ -47,7 +46,7 @@ export default class Home extends Component {
         if ((this.state.currentPage + 1) > this.state.totalPage) {
             return
         }
-        this.setState({refreshing: true, currentPage: this.state.currentPage + 1}, () => this.getItem())
+        this.setState({currentPage: this.state.currentPage + 1}, () => this.getItem())
     }
 
     render() {
@@ -78,8 +77,8 @@ export default class Home extends Component {
                 data={this.state.items}
                 numColumns={2} // 一行2个
                 renderItem={({item}) => <ItemView item={item}/>}
-                onEndReachedThreshold={0.5} // 距离底部还有多远的时候，触发加载更多的事件
-                onEndReached={this.loadNextPage} // 当距离不足 0.5 的时候，触发这个方法，加载下一页数据
+                refreshing={false}
+                onRefresh={this.loadNextPage}
             />
         </View>
     }
@@ -94,7 +93,7 @@ class ItemView extends Component {
             }}>
                 <View>
                     <Image source={{uri: item.image}}
-                           style={{width: '100%', height: 180}}/>
+                           style={{width: '100%', height: 175}}/>
                     <Text>{item.title}</Text>
                     <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
                 </View>
