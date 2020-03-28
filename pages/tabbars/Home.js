@@ -54,7 +54,7 @@ export default class Home extends Component {
             <SearchBar
                 value={this.state.value}
                 placeholder="搜索"
-                onSubmit={value => Alert.alert(value)}
+                onSubmit={value => Actions.itemList({keyword: value})}
                 onCancel={() => this.setState({value: ''})}
                 onChange={value => this.setState({value})}
                 showCancelButton
