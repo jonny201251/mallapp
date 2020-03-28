@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import {Text, View} from 'react-native';
-import {Icon, SearchBar, TabBar, Provider} from '@ant-design/react-native'
+import {Icon, Provider, TabBar} from '@ant-design/react-native'
 import zhCN from '@ant-design/react-native/es/locale-provider/zh_CN'
 import customTheme from '../customTheme'
 import Home from './tabbars/Home'

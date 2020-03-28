@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {View, Alert, Text, Image, TouchableHighlight, FlatList} from 'react-native'
+import {FlatList, Image, Text, TouchableHighlight, View} from 'react-native'
 import {Actions} from 'react-native-router-flux'
-import {SearchBar, Carousel, Grid, Flex, WhiteSpace, WingBlank, Button} from "@ant-design/react-native"
+import {Carousel, SearchBar} from "@ant-design/react-native"
 import Constants from '../../utils/constants'
 
 const hostPath = Constants.hostPath
@@ -54,7 +54,11 @@ export default class Home extends Component {
             <SearchBar
                 value={this.state.value}
                 placeholder="搜索"
-                onSubmit={value => Actions.itemList({keyword: value})}
+                onSubmit={value => {
+                    if (value !== '') {
+                        Actions.itemList({keyword: value})
+                    }
+                }}
                 onCancel={() => this.setState({value: ''})}
                 onChange={value => this.setState({value})}
                 showCancelButton
