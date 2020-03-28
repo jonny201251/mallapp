@@ -8,7 +8,7 @@ const hostPath = Constants.hostPath
 
 export default class Home extends Component {
     state = {
-        value: '',
+        keyword: '',
         images: [],
         currentPage: 1,
         pageSize: 4,
@@ -52,15 +52,15 @@ export default class Home extends Component {
     render() {
         return <View style={{margin: 10}}>
             <SearchBar
-                value={this.state.value}
+                value={this.state.keyword}
                 placeholder="搜索"
-                onSubmit={value => {
-                    if (value !== '') {
-                        Actions.itemList({keyword: value})
+                onSubmit={keyword => {
+                    if (keyword !== '') {
+                        Actions.itemList({keyword})
                     }
                 }}
-                onCancel={() => this.setState({value: ''})}
-                onChange={value => this.setState({value})}
+                onCancel={() => this.setState({keyword: ''})}
+                onChange={keyword => this.setState({keyword})}
                 showCancelButton
             />
             <Carousel
