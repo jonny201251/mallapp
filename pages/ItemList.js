@@ -10,7 +10,7 @@ class ItemList extends Component {
     state = {
         keyword: '',
         currentPage: 1,
-        pageSize: 4,
+        pageSize: 10,
         totalPage: 0,
         items: [],
     }
