@@ -31,7 +31,12 @@ class ItemDetailSpecNo extends Component {
                     <Carousel
                         infinite
                     >
-                        <Text>aaa</Text>
+                        {
+                            this.state.itemData.skus[0].images.split(',').map(url => {
+                                url = url.replace('localhost', '192.168.99.233')
+                                return <Image source={{uri: url}} style={{width: '99.8%', height: 180}}/>
+                            })
+                        }
                     </Carousel>
                 </View>
                 <View>
