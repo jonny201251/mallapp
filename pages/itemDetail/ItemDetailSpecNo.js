@@ -16,6 +16,11 @@ class ItemDetailSpecNo extends Component {
         this.setState({itemData})
     }
 
+    //显示规格参数
+    showSpec = () => {
+        return <Text>Content of Third Tab</Text>
+    }
+
     render() {
         const tabs = [{title: '基本信息'}, {title: '商品详情'}, {title: '规格参数'}];
         const style = {
@@ -59,13 +64,13 @@ class ItemDetailSpecNo extends Component {
                         {
                             descriptionImages.map(url => {
                                 url = url.replace('http://localhost:8080/mall', hostPath)
-                                return <Image source={{uri: url}} style={{width: '99.8%', height: 550}}/>
+                                return <Image source={{uri: url}} style={{width: '99.8%', height: 500}}/>
                             })
                         }
                     </ScrollView>
                 </View>
                 <View>
-                    <Text>Content of Third Tab</Text>
+                    {this.showSpec()}
                 </View>
             </Tabs>
         )
