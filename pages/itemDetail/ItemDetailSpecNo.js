@@ -22,22 +22,25 @@ class ItemDetailSpecNo extends Component {
         const style = {
             alignItems: 'center',
             justifyContent: 'center',
-            height: 150,
             backgroundColor: '#fff',
         }
+        let sku=this.state.itemData.skus[0]
         return (
             <Tabs tabs={tabs}>
                 <View>
                     <Carousel
                         infinite
+                        style={{height: 350, marginTop: 2}}
                     >
                         {
-                            this.state.itemData.skus[0].images.split(',').map(url => {
+                            sku.images.split(',').map(url => {
                                 url = url.replace('localhost', '192.168.99.233')
-                                return <Image source={{uri: url}} style={{width: '99.8%', height: 180}}/>
+                                return <Image source={{uri: url}} style={{width: '99%', height: '100%'}}/>
                             })
                         }
                     </Carousel>
+                    <Text style={{fontSize:25,fontWeight: 'bold',color: '#c81623',marginLeft:15,marginTop:15}}>¥{sku.price}</Text>
+                    <Text style={{fontSize:20,fontWeight: 'bold',marginLeft:15,marginTop:15}}>{sku.title}</Text>
                 </View>
                 <View>
                     <Text>Content of Second Tab</Text>
