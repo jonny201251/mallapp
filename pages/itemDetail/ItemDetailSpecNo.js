@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight, ScrollView} from 'react-native'
-import {Tabs, Carousel, Flex, Button, WingBlank} from '@ant-design/react-native'
+import {Tabs, Carousel, Flex, Button, WingBlank, Card} from '@ant-design/react-native'
 import Constants from '../../utils/constants'
 
 const hostPath = Constants.hostPath
@@ -18,7 +18,35 @@ class ItemDetailSpecNo extends Component {
 
     //显示规格参数
     showSpec = () => {
-        return <Text>Content of Third Tab</Text>
+        let specs = this.state.itemData.specs
+        let genericSpec = JSON.parse(this.state.itemData.detail.genericSpec)
+        if (specs) {
+            return <WingBlank>
+                {specs.map(spec => {
+                    return <Card>
+                        <Card.Header
+                            title={spec.name}
+                            thumbStyle={{width: 30, height: 30}}
+                        />
+                        <Card.Body>
+                            <View>
+                                {
+                                    spec.params.map(param => {
+                                        if (genericSpec[param.id]) {
+                                            return <View style={{flexDirection: "row"}}>
+                                                <Text style={{marginLeft: 16, width: 100}}>{param.name}</Text>
+                                                <Text>{genericSpec[param.id]}</Text>
+                                            </View>
+                                        }
+                                    })
+                                }
+                            </View>
+                        </Card.Body>
+                    </Card>
+                })}
+            </WingBlank>
+        }
+
     }
 
     render() {
@@ -69,7 +97,7 @@ class ItemDetailSpecNo extends Component {
                         }
                     </ScrollView>
                 </View>
-                <View>
+                <View style={{marginTop: 5}}>
                     {this.showSpec()}
                 </View>
             </Tabs>
