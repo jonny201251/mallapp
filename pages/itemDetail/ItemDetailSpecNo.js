@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight} from 'react-native'
-import {Tabs, Carousel} from '@ant-design/react-native'
+import {Tabs, Carousel, Flex, Button, WingBlank} from '@ant-design/react-native'
 import Constants from '../../utils/constants'
 
 const hostPath = Constants.hostPath
@@ -24,7 +24,7 @@ class ItemDetailSpecNo extends Component {
             justifyContent: 'center',
             backgroundColor: '#fff',
         }
-        let sku=this.state.itemData.skus[0]
+        let sku = this.state.itemData.skus[0]
         return (
             <Tabs tabs={tabs}>
                 <View>
@@ -39,8 +39,20 @@ class ItemDetailSpecNo extends Component {
                             })
                         }
                     </Carousel>
-                    <Text style={{fontSize:25,fontWeight: 'bold',color: '#c81623',marginLeft:15,marginTop:15}}>¥{sku.price}</Text>
-                    <Text style={{fontSize:20,fontWeight: 'bold',marginLeft:15,marginTop:15}}>{sku.title}</Text>
+                    <Text style={{
+                        fontSize: 25,
+                        fontWeight: 'bold',
+                        color: '#c81623',
+                        marginLeft: 15,
+                        marginTop: 15
+                    }}>¥{sku.price}</Text>
+                    <Text style={{fontSize: 20, fontWeight: 'bold', marginLeft: 15, marginTop: 15}}>{sku.title}</Text>
+                    <WingBlank>
+                        <Flex justify="between" style={{marginTop: 80, marginLeft: 15}}>
+                            <Button type="primary" style={{width: '47%'}}>加入购物车</Button>
+                            <Button type="warning" style={{width: '47%'}}>立即购买</Button>
+                        </Flex>
+                    </WingBlank>
                 </View>
                 <View>
                     <Text>Content of Second Tab</Text>
