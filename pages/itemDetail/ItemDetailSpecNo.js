@@ -63,7 +63,6 @@ class ItemDetailSpecNo extends Component {
                             })
                         }
                     </ScrollView>
-
                 </View>
                 <View>
                     <Text>Content of Third Tab</Text>
