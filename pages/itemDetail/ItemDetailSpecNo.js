@@ -15,8 +15,18 @@ class ItemDetailSpecNo extends Component {
         let itemData = this.props.itemData
         this.setState({itemData})
     }
+
     //显示商品详情
-    showDetail=()=>{
+    showDetail = () => {
+        let descriptionImages = this.state.itemData.descriptionImages
+        if (descriptionImages.length > 0) {
+            return descriptionImages.map(url => {
+                url = url.replace('http://localhost:8080/mall', hostPath)
+                return <Image source={{uri: url}} style={{width: '99.8%', height: 500}}/>
+            })
+        }else{
+            return <WingBlank><Text>暂无详情</Text></WingBlank>
+        }
 
     }
     //显示规格参数
@@ -26,7 +36,7 @@ class ItemDetailSpecNo extends Component {
         if (specs) {
             return <WingBlank>
                 {specs.map(spec => {
-                    return <Card style={{marginTop:5}}>
+                    return <Card style={{marginTop: 5}}>
                         <Card.Header
                             title={spec.name}
                             thumbStyle={{width: 30, height: 30}}
@@ -55,7 +65,6 @@ class ItemDetailSpecNo extends Component {
     render() {
         const tabs = [{title: '基本信息'}, {title: '商品详情'}, {title: '规格参数'}];
         let sku = this.state.itemData.skus[0]
-        let descriptionImages = this.state.itemData.descriptionImages
         return (
             <Tabs tabs={tabs}>
                 <View>
@@ -89,10 +98,7 @@ class ItemDetailSpecNo extends Component {
                 <View>
                     <ScrollView>
                         {
-                            descriptionImages.map(url => {
-                                url = url.replace('http://localhost:8080/mall', hostPath)
-                                return <Image source={{uri: url}} style={{width: '99.8%', height: 500}}/>
-                            })
+                            this.showDetail()
                         }
                     </ScrollView>
                 </View>
