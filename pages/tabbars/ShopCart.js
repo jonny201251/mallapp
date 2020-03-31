@@ -12,11 +12,16 @@ export default class ShopCart extends Component {
     componentWillMount() {
         StorageUtil.get("userInfo").then(user => {
             if (user) {
-                console.warn(user)
+                //获取购物车中的商品
+                fetch(hostPath + '/app/cart/list?userId=' + user.id)
+                    .then(res => res.json())
+                    .then(resp => {
+                        this.setState({carts: resp.data})
+                    })
+            } else {
+                //去登录
             }
         })
-
-
     }
 
     render() {
