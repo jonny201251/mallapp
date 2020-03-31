@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight} from 'react-native'
+import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight, ScrollView} from 'react-native'
 import {Tabs, Carousel, Flex, Button, WingBlank} from '@ant-design/react-native'
 import Constants from '../../utils/constants'
 
@@ -14,7 +14,6 @@ class ItemDetailSpecNo extends Component {
     componentWillMount() {
         let itemData = this.props.itemData
         this.setState({itemData})
-        console.warn(itemData)
     }
 
     render() {
@@ -25,6 +24,7 @@ class ItemDetailSpecNo extends Component {
             backgroundColor: '#fff',
         }
         let sku = this.state.itemData.skus[0]
+        let descriptionImages = this.state.itemData.descriptionImages
         return (
             <Tabs tabs={tabs}>
                 <View>
@@ -34,7 +34,7 @@ class ItemDetailSpecNo extends Component {
                     >
                         {
                             sku.images.split(',').map(url => {
-                                url = url.replace('localhost', '192.168.99.233')
+                                url = url.replace('http://localhost:8080/mall', hostPath)
                                 return <Image source={{uri: url}} style={{width: '99%', height: '100%'}}/>
                             })
                         }
@@ -55,7 +55,15 @@ class ItemDetailSpecNo extends Component {
                     </WingBlank>
                 </View>
                 <View>
-                    <Text>Content of Second Tab</Text>
+                    <ScrollView>
+                        {
+                            descriptionImages.map(url => {
+                                url = url.replace('http://localhost:8080/mall', hostPath)
+                                return <Image source={{uri: url}} style={{width: '99.8%', height: 400}}/>
+                            })
+                        }
+                    </ScrollView>
+
                 </View>
                 <View>
                     <Text>Content of Third Tab</Text>
