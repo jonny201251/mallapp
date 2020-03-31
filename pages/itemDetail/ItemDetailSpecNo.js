@@ -39,16 +39,16 @@ class ItemDetailSpecNo extends Component {
                             })
                         }
                     </Carousel>
-                    <Text style={{
-                        fontSize: 25,
-                        fontWeight: 'bold',
-                        color: '#c81623',
-                        marginLeft: 15,
-                        marginTop: 15
-                    }}>¥{sku.price}</Text>
-                    <Text style={{fontSize: 20, fontWeight: 'bold', marginLeft: 15, marginTop: 15}}>{sku.title}</Text>
                     <WingBlank>
-                        <Flex justify="between" style={{marginTop: 80, marginLeft: 15}}>
+                        <Text style={{
+                            fontSize: 25,
+                            fontWeight: 'bold',
+                            color: '#c81623',
+                            marginTop: 15
+                        }}>¥{sku.price}</Text>
+                        <Text style={{fontSize: 20, fontWeight: 'bold', marginTop: 15}}>{sku.title}</Text>
+
+                        <Flex justify="between" style={{marginTop: 80}}>
                             <Button type="primary" style={{width: '47%'}}>加入购物车</Button>
                             <Button type="warning" style={{width: '47%'}}>立即购买</Button>
                         </Flex>
@@ -59,7 +59,7 @@ class ItemDetailSpecNo extends Component {
                         {
                             descriptionImages.map(url => {
                                 url = url.replace('http://localhost:8080/mall', hostPath)
-                                return <Image source={{uri: url}} style={{width: '99.8%', height: 400}}/>
+                                return <Image source={{uri: url}} style={{width: '99.8%', height: 550}}/>
                             })
                         }
                     </ScrollView>
