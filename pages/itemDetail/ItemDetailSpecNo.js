@@ -87,9 +87,9 @@ class ItemDetailSpecNo extends Component {
                             marginTop: 15
                         }}>¥{sku.price}</Text>
                         <Text style={{fontSize: 20, fontWeight: 'bold', marginTop: 15}}>{sku.title}</Text>
-                        <Text style={{fontSize: 20, marginTop: 15}}>{sku.subTitle}</Text>
+                        <Text>{ this.state.itemData.subTitle}</Text>
 
-                        <Flex justify="between" style={{marginTop: 80}}>
+                        <Flex justify="between" style={{marginTop: 60}}>
                             <Button type="primary" style={{width: '47%'}}>加入购物车</Button>
                             <Button type="warning" style={{width: '47%'}}>立即购买</Button>
                         </Flex>
