@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight, ScrollView} from 'react-native'
-import {Tabs, Carousel, Flex, Button, WingBlank, Card} from '@ant-design/react-native'
+import {Tabs, Carousel, Flex, Button, WhiteSpace, WingBlank, Card} from '@ant-design/react-native'
 import Constants from '../../utils/constants'
 
 const hostPath = Constants.hostPath
@@ -15,7 +15,10 @@ class ItemDetailSpecNo extends Component {
         let itemData = this.props.itemData
         this.setState({itemData})
     }
+    //显示商品详情
+    showDetail=()=>{
 
+    }
     //显示规格参数
     showSpec = () => {
         let specs = this.state.itemData.specs
@@ -23,7 +26,7 @@ class ItemDetailSpecNo extends Component {
         if (specs) {
             return <WingBlank>
                 {specs.map(spec => {
-                    return <Card>
+                    return <Card style={{marginTop:5}}>
                         <Card.Header
                             title={spec.name}
                             thumbStyle={{width: 30, height: 30}}
@@ -34,7 +37,7 @@ class ItemDetailSpecNo extends Component {
                                     spec.params.map(param => {
                                         if (genericSpec[param.id]) {
                                             return <View style={{flexDirection: "row"}}>
-                                                <Text style={{marginLeft: 16, width: 100}}>{param.name}</Text>
+                                                <Text style={{marginLeft: 16, width: 150}}>{param.name}</Text>
                                                 <Text>{genericSpec[param.id]}</Text>
                                             </View>
                                         }
@@ -51,11 +54,6 @@ class ItemDetailSpecNo extends Component {
 
     render() {
         const tabs = [{title: '基本信息'}, {title: '商品详情'}, {title: '规格参数'}];
-        const style = {
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#fff',
-        }
         let sku = this.state.itemData.skus[0]
         let descriptionImages = this.state.itemData.descriptionImages
         return (
@@ -80,6 +78,7 @@ class ItemDetailSpecNo extends Component {
                             marginTop: 15
                         }}>¥{sku.price}</Text>
                         <Text style={{fontSize: 20, fontWeight: 'bold', marginTop: 15}}>{sku.title}</Text>
+                        <Text style={{fontSize: 20, marginTop: 15}}>{sku.subTitle}</Text>
 
                         <Flex justify="between" style={{marginTop: 80}}>
                             <Button type="primary" style={{width: '47%'}}>加入购物车</Button>
@@ -97,7 +96,7 @@ class ItemDetailSpecNo extends Component {
                         }
                     </ScrollView>
                 </View>
-                <View style={{marginTop: 5}}>
+                <View>
                     {this.showSpec()}
                 </View>
             </Tabs>
