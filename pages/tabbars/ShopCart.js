@@ -53,6 +53,7 @@ export default class ShopCart extends Component {
                 return <TouchableHighlight underlayColor="#fff" onPress={() => {
                     Actions.itemDetail({spuId: item.skuId})
                 }}>
+                    <View>
                     <View style={{flexDirection: 'row', padding: 10}}>
                         <Image source={{uri: imageUrl}} style={{width: 150, height: 140, marginRight: 10}}/>
                         <View style={{justifyContent: 'space-around'}}>
@@ -69,6 +70,8 @@ export default class ShopCart extends Component {
                                         onPress={() => this.onPress('increment')}>+</Button>
                             </View>
                         </View>
+                    </View>
+                    <View style={{borderTopColor: '#ccc', borderTopWidth: 1, marginLeft: 10, marginRight: 10}}/>
                     </View>
                 </TouchableHighlight>
             })
