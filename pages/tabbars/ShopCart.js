@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight, ScrollView, AsyncStorage} from 'react-native'
-import {Tabs, Carousel, Flex, Button, WhiteSpace, WingBlank, Card} from '@ant-design/react-native'
+import {Tabs, Carousel, Flex, Button, WhiteSpace, WingBlank, Card, Checkbox} from '@ant-design/react-native'
 import Constants from '../../utils/constants'
 import StorageUtil from '../../utils/StorageUtil'
 import {Actions} from "react-native-router-flux"
@@ -61,6 +61,14 @@ export default class ShopCart extends Component {
                 }}>
                     <View>
                         <View style={{flexDirection: 'row', padding: 10}}>
+                            <View style={{justifyContent: 'space-around', marginRight: 10}}>
+                                <Checkbox
+                                    style={{color: '#ccc'}}
+                                    onChange={event => {
+                                        this.setState({checkBox1: event.target.checked});
+                                    }}
+                                />
+                            </View>
                             <Image source={{uri: imageUrl}} style={{width: 150, height: 140, marginRight: 10}}/>
                             <View style={{justifyContent: 'space-around'}}>
                                 <Text style={{fontWeight: 'bold'}}>{item.title}</Text>
