@@ -3,6 +3,7 @@ import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight, ScrollVi
 import {Tabs, Carousel, Flex, Button, WhiteSpace, WingBlank, Card} from '@ant-design/react-native'
 import Constants from '../../utils/constants'
 import StorageUtil from '../../utils/StorageUtil'
+import {Actions} from "react-native-router-flux"
 
 const hostPath = Constants.hostPath
 
@@ -39,6 +40,31 @@ export default class ShopCart extends Component {
         })
     }
 
+    // 渲染分割线
+    renderSeparator = () => {
+        return <View style={{borderTopColor: '#ccc', borderTopWidth: 1, marginLeft: 10, marginRight: 10}}/>
+    }
+    // 渲染每个商品
+    renderItem = () => {
+        if (this.state.carts) {
+            return this.state.carts.map(item => {
+                let imageUrl = item.image.replace('http://localhost:8080/mall', hostPath)
+                //此处的spuId、skuId有问题，没有考虑到具有特有属性的商品
+                return <TouchableHighlight underlayColor="#fff" onPress={() => {
+                    Actions.itemDetail({spuId: item.skuId})
+                }}>
+                    <View style={{flexDirection: 'row', padding: 10}}>
+                        <Image source={{uri: imageUrl}} style={{width: 150, height: 140, marginRight: 10}}/>
+                        <View style={{justifyContent: 'space-around'}}>
+                            <Text style={{fontWeight: 'bold'}}>{item.title}</Text>
+                            <Text style={{color: '#c81623'}}>¥{item.price}</Text>
+                        </View>
+                    </View>
+                </TouchableHighlight>
+            })
+        }
+    }
+
     render() {
         return <View style={{flex: 1, backgroundColor: '#F8F8F8'}}>
             <Text style={{marginTop: 50, textAlign: 'center'}}>购物车</Text>
@@ -46,8 +72,7 @@ export default class ShopCart extends Component {
                 {this.state.receiveAddress ? this.state.receiveAddress.address : ''}
             </Text>
             <ScrollView>
-                <Image source={{uri: 'http://192.168.99.233:8080/mall/image/item/15271057fbe64701bb39237dc17a832b.jpg'}}
-                       style={{width: '99.8%', height: 900}}/>
+                {this.renderItem()}
             </ScrollView>
             <View style={{flexDirection: 'row'}}>
                 <Text style={{
