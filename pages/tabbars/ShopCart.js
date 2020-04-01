@@ -49,29 +49,31 @@ export default class ShopCart extends Component {
         if (this.state.carts) {
             return this.state.carts.map(item => {
                 let imageUrl = item.image.replace('http://localhost:8080/mall', hostPath)
-                //此处的spuId、skuId有问题，没有考虑到具有特有属性的商品
+
                 return <TouchableHighlight underlayColor="#fff" onPress={() => {
+                    //此处的spuId、skuId有问题，没有考虑到具有特有属性的商品
                     Actions.itemDetail({spuId: item.skuId})
                 }}>
                     <View>
-                    <View style={{flexDirection: 'row', padding: 10}}>
-                        <Image source={{uri: imageUrl}} style={{width: 150, height: 140, marginRight: 10}}/>
-                        <View style={{justifyContent: 'space-around'}}>
-                            <Text style={{fontWeight: 'bold'}}>{item.title}</Text>
-                            <Text style={{color: '#c81623'}}>¥{item.price}</Text>
-                            <View style={{flexDirection: 'row'}}>
-                                <Button size='small' style={{width: 50}} onPress={() => this.onPress('decrement')}><Text
-                                    style={{fontWeight: '700px'}}>-</Text></Button>
-                                <Text style={{
-                                    width: 50,
-                                    textAlign: 'center'
-                                }}>{item.num}</Text>
-                                <Button size='small' style={{width: 50}}
-                                        onPress={() => this.onPress('increment')}>+</Button>
+                        <View style={{flexDirection: 'row', padding: 10}}>
+                            <Image source={{uri: imageUrl}} style={{width: 150, height: 140, marginRight: 10}}/>
+                            <View style={{justifyContent: 'space-around'}}>
+                                <Text style={{fontWeight: 'bold'}}>{item.title}</Text>
+                                <Text style={{color: '#c81623'}}>¥{item.price}</Text>
+                                <View style={{flexDirection: 'row'}}>
+                                    <Button size='small' style={{width: 50}}
+                                            onPress={() => this.onPress('decrement')}><Text
+                                        style={{fontWeight: '700px'}}>-</Text></Button>
+                                    <Text style={{
+                                        width: 50,
+                                        textAlign: 'center'
+                                    }}>{item.num}</Text>
+                                    <Button size='small' style={{width: 50}}
+                                            onPress={() => this.onPress('increment')}>+</Button>
+                                </View>
                             </View>
                         </View>
-                    </View>
-                    <View style={{borderTopColor: '#ccc', borderTopWidth: 1, marginLeft: 10, marginRight: 10}}/>
+                        {this.renderSeparator()}
                     </View>
                 </TouchableHighlight>
             })
