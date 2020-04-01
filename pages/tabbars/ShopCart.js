@@ -12,9 +12,10 @@ export default class ShopCart extends Component {
         totalMoney: 0.00
     }
 
-    componentWillMount() {
+    init = () => {
         StorageUtil.get("userInfo").then(user => {
             if (user) {
+                this.setState({userId: user.id})
                 //收货地址
                 StorageUtil.get("receiveAddress").then(value => {
                     if (value == null) {
@@ -40,6 +41,10 @@ export default class ShopCart extends Component {
         })
     }
 
+    componentWillMount() {
+        this.init()
+    }
+
     // 渲染分割线
     renderSeparator = () => {
         return <View style={{borderTopColor: '#ccc', borderTopWidth: 1, marginLeft: 10, marginRight: 10}}/>
@@ -62,14 +67,14 @@ export default class ShopCart extends Component {
                                 <Text style={{color: '#c81623'}}>¥{item.price}</Text>
                                 <View style={{flexDirection: 'row'}}>
                                     <Button size='small' style={{width: 50}}
-                                            onPress={() => this.onPress('decrement')}><Text
+                                            onPress={() => this.onPress('decrement', item.skuId, item.num)}><Text
                                         style={{fontWeight: '700px'}}>-</Text></Button>
                                     <Text style={{
                                         width: 50,
                                         textAlign: 'center'
                                     }}>{item.num}</Text>
                                     <Button size='small' style={{width: 50}}
-                                            onPress={() => this.onPress('increment')}>+</Button>
+                                            onPress={() => this.onPress('increment', item.skuId, item.num)}>+</Button>
                                 </View>
                             </View>
                         </View>
@@ -77,6 +82,28 @@ export default class ShopCart extends Component {
                     </View>
                 </TouchableHighlight>
             })
+        }
+    }
+
+    onPress = (type, skuId, oldNum) => {
+        let newNum = oldNum
+        if ("decrement" === type) {
+            //商品数量的减法
+            if (oldNum > 1) {
+                newNum = oldNum - 1
+            }
+        } else if ("increment" === type) {
+            //商品数量的加法
+            newNum = oldNum + 1
+        }
+        if (newNum !== oldNum) {
+            fetch(hostPath + '/app/cart/updateCartNum?userId=' + this.state.userId + '&skuId=' + skuId + '&num=' + newNum)
+                .then(res => res.json())
+                .then(resp => {
+                    if (resp.code === 1) {
+                        this.init()
+                    }
+                })
         }
     }
 
