@@ -11,7 +11,8 @@ const hostPath = Constants.hostPath
 
 export default class ShopCart extends Component {
     state = {
-        totalMoney: 0.00
+        totalMoney: 0.00,
+        checkAll: false
     }
 
     init = () => {
@@ -41,7 +42,7 @@ export default class ShopCart extends Component {
                             cartMap[cart.skuId] = cart
                             skuIdsAll.push(cart.skuId)
                         })
-                        this.setState({carts: resp.data, cartMap}, () => this.total())
+                        this.setState({carts: resp.data, cartMap, skuIdsAll}, () => this.total())
                     })
             } else {
                 //去登录
@@ -71,12 +72,11 @@ export default class ShopCart extends Component {
                         <View style={{flexDirection: 'row', padding: 10}}>
                             <View style={{justifyContent: 'space-around', marginRight: 10}}>
                                 <Checkbox
+                                    style={{backgroundColor: '#F8F8F8'}}
                                     value={this.state.skuIds}
                                     onChange={(skuIds) => this.onChange(skuIds)}>
                                     <Checkbox.Item label='' value={item.skuId}/>
                                 </Checkbox>
-
-
                             </View>
                             <Image source={{uri: imageUrl}} style={{width: 150, height: 140, marginRight: 10}}/>
                             <View style={{justifyContent: 'space-around'}}>
@@ -127,7 +127,18 @@ export default class ShopCart extends Component {
     onChange = (skuIds) => {
         this.setState({skuIds}, () => this.total())
     }
+    //全选
+    onChange2 = (value) => {
+        let {checkAll, skuIdsAll} = this.state
+        if (!checkAll) {
+            //全选
+            this.setState({skuIds: skuIdsAll, checkAll: !checkAll}, () => this.total())
+        } else {
+            //全不选
+            this.setState({skuIds: [], checkAll: !checkAll}, () => this.total())
+        }
 
+    }
     //计算总计
     total = () => {
         let {cartMap, skuIds} = this.state
@@ -137,12 +148,12 @@ export default class ShopCart extends Component {
                 let cart = cartMap[skuId]
                 totalMoney += cart.price * cart.num
             })
-            console.warn(totalMoney)
         }
+        this.setState({totalMoney})
     }
 
     render() {
-        return <View style={{flex: 1, backgroundColor: '#F8F8F8'}}>
+        return <View style={{flex: 1}}>
             <Text style={{marginTop: 50, textAlign: 'center'}}>购物车</Text>
             <Text style={{color: 'grey', margin: 10}}>
                 {this.state.receiveAddress ? this.state.receiveAddress.address : ''}
@@ -150,15 +161,23 @@ export default class ShopCart extends Component {
             <ScrollView>
                 {this.renderItem()}
             </ScrollView>
-            <View style={{flexDirection: 'row'}}>
-                <Text style={{
-                    fontSize: 20,
-                    fontWeight: 'bold',
-                    color: '#c81623',
-                    height: 50,
-                    lineHeight: 50
-                }}>总计:¥{this.state.totalMoney}</Text>
-                <Button type="warning" style={{width: '30%'}}>去结算</Button>
+            <View style={{flexDirection: 'row', marginLeft: 10}}>
+                <Checkbox
+                    style={{backgroundColor: '#F8F8F8'}}
+                    onChange={(value) => this.onChange2(value)}>
+                    <Checkbox.Item label='全选'/>
+                </Checkbox>
+                <View style={{flexDirection: 'row', paddingLeft: '30%'}}>
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        color: '#c81623',
+                        height: 50,
+                        lineHeight: 50,
+                        paddingRight: 10
+                    }}>总计:¥{this.state.totalMoney}</Text>
+                    <Button type="warning" style={{width: 100}}>去结算</Button>
+                </View>
             </View>
         </View>
     }
