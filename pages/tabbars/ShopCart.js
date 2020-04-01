@@ -125,17 +125,20 @@ export default class ShopCart extends Component {
     }
 
     onChange = (skuIds) => {
+        if (skuIds.length === this.state.skuIdsAll.length) {
+            this.setState({value: [1]})
+        }
         this.setState({skuIds}, () => this.total())
     }
     //全选
     onChange2 = (value) => {
-        let {checkAll, skuIdsAll} = this.state
-        if (!checkAll) {
+        if (value[0] === 1) {
             //全选
-            this.setState({skuIds: skuIdsAll, checkAll: !checkAll}, () => this.total())
+            let skuIdsAll = this.state.skuIdsAll
+            this.setState({skuIds: skuIdsAll, value}, () => this.total())
         } else {
             //全不选
-            this.setState({skuIds: [], checkAll: !checkAll}, () => this.total())
+            this.setState({skuIds: [], value}, () => this.total())
         }
 
     }
@@ -163,9 +166,12 @@ export default class ShopCart extends Component {
             </ScrollView>
             <View style={{flexDirection: 'row', marginLeft: 10}}>
                 <Checkbox
-                    style={{backgroundColor: '#F8F8F8'}}
-                    onChange={(value) => this.onChange2(value)}>
-                    <Checkbox.Item label='全选'/>
+                    value={this.state.value}
+                    onChange={(value) => {
+                        this.onChange2(value)
+                    }}>
+
+                    <Checkbox.Item label='全选' value={1}/>
                 </Checkbox>
                 <View style={{flexDirection: 'row', paddingLeft: '30%'}}>
                     <Text style={{
