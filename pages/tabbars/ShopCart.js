@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight, ScrollView, AsyncStorage} from 'react-native'
-import {Tabs, Carousel, Flex, Button, WhiteSpace, WingBlank, Card, Checkbox} from '@ant-design/react-native'
+import {Tabs, Carousel, Flex, Button, WhiteSpace, WingBlank, Card} from '@ant-design/react-native'
 import Constants from '../../utils/constants'
 import StorageUtil from '../../utils/StorageUtil'
 import {Actions} from "react-native-router-flux"
+import {Checkbox} from 'beeshell'
+
 
 const hostPath = Constants.hostPath
 
@@ -33,7 +35,13 @@ export default class ShopCart extends Component {
                 fetch(hostPath + '/app/cart/list?userId=' + user.id)
                     .then(res => res.json())
                     .then(resp => {
-                        this.setState({carts: resp.data})
+                        let cartMap = {}
+                        let skuIdsAll = []
+                        resp.data.map(cart => {
+                            cartMap[cart.skuId] = cart
+                            skuIdsAll.push(cart.skuId)
+                        })
+                        this.setState({carts: resp.data, cartMap}, () => this.total())
                     })
             } else {
                 //去登录
@@ -63,11 +71,12 @@ export default class ShopCart extends Component {
                         <View style={{flexDirection: 'row', padding: 10}}>
                             <View style={{justifyContent: 'space-around', marginRight: 10}}>
                                 <Checkbox
-                                    style={{color: '#ccc'}}
-                                    onChange={event => {
-                                        this.setState({checkBox1: event.target.checked});
-                                    }}
-                                />
+                                    value={this.state.skuIds}
+                                    onChange={(skuIds) => this.onChange(skuIds)}>
+                                    <Checkbox.Item label='' value={item.skuId}/>
+                                </Checkbox>
+
+
                             </View>
                             <Image source={{uri: imageUrl}} style={{width: 150, height: 140, marginRight: 10}}/>
                             <View style={{justifyContent: 'space-around'}}>
@@ -112,6 +121,23 @@ export default class ShopCart extends Component {
                         this.init()
                     }
                 })
+        }
+    }
+
+    onChange = (skuIds) => {
+        this.setState({skuIds}, () => this.total())
+    }
+
+    //计算总计
+    total = () => {
+        let {cartMap, skuIds} = this.state
+        let totalMoney = 0.00
+        if (skuIds) {
+            skuIds.map(skuId => {
+                let cart = cartMap[skuId]
+                totalMoney += cart.price * cart.num
+            })
+            console.warn(totalMoney)
         }
     }
 

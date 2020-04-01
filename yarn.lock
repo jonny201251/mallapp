@@ -1624,6 +1624,13 @@ basic-auth@~2.0.0:
   dependencies:
     safe-buffer "5.1.2"
 
+beeshell@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.npmjs.org/beeshell/-/beeshell-2.0.11.tgz#90ed9356312676973db819ef9b8035bc7ea9cbdd"
+  integrity sha512-r4kXd78xxWjRIBUckvq1vGJ/sgcpPQbg/YIrtuJK3l+vn1bj6wtXiNGKTMpaxgI8FoGigSESvRm4IgY60pzIQQ==
+  dependencies:
+    moment "^2.24.0"
+
 big-integer@^1.6.44:
   version "1.6.48"
   resolved "https://registry.npmjs.org/big-integer/-/big-integer-1.6.48.tgz#8fd88bd1632cba4a1c8c3e3d7159f08bb95b4b9e"
@@ -3808,6 +3815,11 @@ mkdirp@^0.5.1:
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.npmjs.org/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 morgan@^1.9.0:
   version "1.9.1"

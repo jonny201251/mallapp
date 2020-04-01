@@ -10,6 +10,7 @@
   "dependencies": {
     "@ant-design/icons-react-native": "^2.0.0",
     "@ant-design/react-native": "^3.3.0",
+    "beeshell": "^2.0.11",
     "expo": "~36.0.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
