@@ -58,6 +58,16 @@ export default class ShopCart extends Component {
                         <View style={{justifyContent: 'space-around'}}>
                             <Text style={{fontWeight: 'bold'}}>{item.title}</Text>
                             <Text style={{color: '#c81623'}}>¥{item.price}</Text>
+                            <View style={{flexDirection: 'row'}}>
+                                <Button size='small' style={{width: 50}} onPress={() => this.onPress('decrement')}><Text
+                                    style={{fontWeight: '700px'}}>-</Text></Button>
+                                <Text style={{
+                                    width: 50,
+                                    textAlign: 'center'
+                                }}>{item.num}</Text>
+                                <Button size='small' style={{width: 50}}
+                                        onPress={() => this.onPress('increment')}>+</Button>
+                            </View>
                         </View>
                     </View>
                 </TouchableHighlight>
