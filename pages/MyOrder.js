@@ -3,7 +3,8 @@ import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight, AsyncSto
 import Constants from "../utils/constants"
 import StorageUtil from '../utils/StorageUtil'
 import {Tabs, Card} from '@ant-design/react-native'
-import {Actions} from "react-native-router-flux";
+import {Actions} from "react-native-router-flux"
+import {Button} from 'beeshell/dist/components/Button'
 
 const hostPath = Constants.hostPath
 export default class MyOrder extends Component {
@@ -60,26 +61,72 @@ export default class MyOrder extends Component {
     }
 
     onChangeTab = ({status}) => {
-
+        this.setState({status})
+        this.init()
+    }
+    onPress = (orderId, status) => {
+        fetch(hostPath + '/app/order/orderStatus?orderId=' + orderId + '&status=' + status)
+            .then(res => res.json())
+            .then(resp => {
+                if (resp.code === 1) {
+                    //重新获取订单
+                    this.init()
+                }
+            })
+    }
+    showOrderStatusButton = (order) => {
+        //0、等待商家发货 3、已发货,未确认 8、确认收货 4、交易成功 7、取消订单
+        let arr = []
+        let companyType = '1'
+        if (companyType === '1') {
+            //分厂人员：取消订单、确认收货
+            if (order.orderStatus.status === 0) {
+                arr.push(<Button size="sm" style={{paddingLeft: 5}}
+                                 onPress={() => this.onPress(order.orderId, '7')}>取消订单</Button>)
+            }
+            if (order.orderStatus.status === 3) {
+                arr.push(<Button size="sm" style={{paddingLeft: 5}}
+                                 onPress={() => this.onPress(order.orderId, '8')}>确认收货</Button>)
+            }
+        } else if (companyType === '2') {
+            //商家：确认发货
+            if (order.orderStatus.status === 0) {
+                arr.push(<Button size="sm" style={{paddingLeft: 5}}
+                                 onPress={() => this.onPress(order.orderId, '3')}>确认发货</Button>)
+            }
+        } else if (companyType === '3') {
+            //管理员：取消订单
+            if (order.orderStatus.status === 0) {
+                arr.push(<Button size="sm" style={{paddingLeft: 5}}
+                                 onPress={() => this.onPress(order.orderId, '7')}>取消订单</Button>)
+            }
+        }
+        return arr
     }
     // 渲染每个订单的商品
     renderOrder = () => {
         if (this.state.orderData) {
             return this.state.orderData.dataList.map(order => {
-                return <Card style={{margin: 3}}>
-                    <Card.Header
-                        title={order.seller.name}
-                        extra={this.orderStatus(order.orderStatus.status)}
-                    />
-                    <Card.Body>
-                        <View>
-                            {this.renderItem(order.orderDetails)}
+                return <View>
+                    <Card style={{margin: 3}}>
+                        <Card.Header
+                            title={order.seller.name}
+                            extra={this.orderStatus(order.orderStatus.status)}
+                        />
+                        <Card.Body>
+                            <View>
+                                {this.renderItem(order.orderDetails)}
+                            </View>
+                        </Card.Body>
+                        <Card.Footer
+                            extra={`共${order.orderDetails.length}件,总计:${order.totalPay}`}
+                        />
+                        <View style={{flexDirection: 'row', marginTop: 10, marginRight: 5, alignSelf: 'flex-end'}}>
+                            {this.showOrderStatusButton(order)}
                         </View>
-                    </Card.Body>
-                    <Card.Footer
-                        extra={`共${order.orderDetails.length}件,总计:${order.totalPay}`}
-                    />
-                </Card>
+                    </Card>
+
+                </View>
             })
         }
     }
@@ -113,7 +160,7 @@ export default class MyOrder extends Component {
             {title: '待发货', status: 0},
             {title: '已发货', status: 3},
             {title: '确认收货', status: 8},
-        ];
+        ]
         return <Tabs tabs={tabs} onChange={tab => this.onChangeTab(tab)} style={{marginTop: 15}}>
             <ScrollView>
                 {this.renderOrder()}
