@@ -37,7 +37,8 @@ export default class MyOrder extends Component {
         //用户登录
         StorageUtil.get("userInfo").then(user => {
             if (user) {
-                this.setState({userId: user.id}, () => this.init())
+                console.warn(user.company)
+                this.setState({userId: user.id, companyType: user.company.type}, () => this.init())
             } else {
                 //未登录
             }
@@ -77,7 +78,7 @@ export default class MyOrder extends Component {
     showOrderStatusButton = (order) => {
         //0、等待商家发货 3、已发货,未确认 8、确认收货 4、交易成功 7、取消订单
         let arr = []
-        let companyType = '1'
+        let companyType = this.state.companyType
         if (companyType === '1') {
             //分厂人员：取消订单、确认收货
             if (order.orderStatus.status === 0) {
@@ -161,10 +162,13 @@ export default class MyOrder extends Component {
             {title: '已发货', status: 3},
             {title: '确认收货', status: 8},
         ]
-        return <Tabs tabs={tabs} onChange={tab => this.onChangeTab(tab)} style={{marginTop: 15}}>
-            <ScrollView>
-                {this.renderOrder()}
-            </ScrollView>
-        </Tabs>
+        return <View style={{flex:1}}>
+
+            <Tabs tabs={tabs} onChange={tab => this.onChangeTab(tab)} style={{marginTop: 15}}>
+                <ScrollView>
+                    {this.renderOrder()}
+                </ScrollView>
+            </Tabs>
+        </View>
     }
 }
