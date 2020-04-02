@@ -26,8 +26,8 @@ export default class OrderInfo extends Component {
     componentWillMount() {
         let skuIds = this.props.skuIds.join(',')
         StorageUtil.get("userInfo").then(user => {
-            this.setState({userId: user.id})
-            if (user != null) {
+            if (user) {
+                this.setState({userId: user.id})
                 //收货地址
                 fetch(hostPath + '/app/receiveAddress?userId=' + user.id)
                     .then(res => res.json())
@@ -42,6 +42,7 @@ export default class OrderInfo extends Component {
                     })
             } else {
                 //去登录
+                Actions.login()
             }
         })
     }

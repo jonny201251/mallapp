@@ -99,6 +99,7 @@ class ItemDetailSpecNo extends Component {
                         })
                 } else {
                     //去登录
+                    Actions.login()
                 }
             })
         }

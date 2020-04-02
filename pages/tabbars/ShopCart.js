@@ -40,6 +40,7 @@ export default class ShopCart extends Component {
                     })
             } else {
                 //去登录
+                Actions.login()
             }
         })
     }
