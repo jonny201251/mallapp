@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight, ActivityIndicator} from 'react-native'
+import {ActivityIndicator, View} from 'react-native'
 import Constants from "../utils/constants"
 import ItemDetailSpecYes from './itemDetail/ItemDetailSpecYes'
 import ItemDetailSpecNo from './itemDetail/ItemDetailSpecNo'

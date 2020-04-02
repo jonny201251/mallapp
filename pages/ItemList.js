@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import {View, Alert, Text, Image, TouchableHighlight, FlatList} from 'react-native'
+import {FlatList, Image, Text, TouchableHighlight, View} from 'react-native'
 import {Actions} from 'react-native-router-flux'
-import {SearchBar, Carousel, Grid, Flex, WhiteSpace, WingBlank, Button} from "@ant-design/react-native"
+import {SearchBar} from "@ant-design/react-native"
 import Constants from "../utils/constants"
 
 const hostPath = Constants.hostPath

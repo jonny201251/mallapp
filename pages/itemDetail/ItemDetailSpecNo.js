@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight, ScrollView} from 'react-native'
-import {Tabs, Carousel, Flex, Button, WhiteSpace, WingBlank, Card, InputItem} from '@ant-design/react-native'
+import {Image, ScrollView, Text, View} from 'react-native'
+import {Button, Card, Carousel, Flex, Tabs, WingBlank} from '@ant-design/react-native'
 import Constants from '../../utils/constants'
 import StorageUtil from '../../utils/StorageUtil'
 

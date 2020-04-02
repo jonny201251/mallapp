@@ -12,7 +12,8 @@ const hostPath = Constants.hostPath
 export default class ShopCart extends Component {
     state = {
         totalMoney: 0.00,
-        checkAll: false
+        checkAll: false,
+        skuIds: []
     }
 
     init = () => {
@@ -155,6 +156,13 @@ export default class ShopCart extends Component {
         this.setState({totalMoney})
     }
 
+    //结算
+    jiesuan = () => {
+        if (this.state.skuIds.length > 0) {
+
+        }
+    }
+
     render() {
         return <View style={{flex: 1}}>
             <Text style={{marginTop: 50, textAlign: 'center'}}>购物车</Text>
@@ -182,7 +190,9 @@ export default class ShopCart extends Component {
                         lineHeight: 50,
                         paddingRight: 10
                     }}>总计:¥{this.state.totalMoney}</Text>
-                    <Button type="warning" style={{width: 100}}>去结算</Button>
+                    <Button type="warning" style={{width: 100}} onClick={this.jiesuan}>
+                        结算{this.state.skuIds.length > 0 ? '(' + this.state.skuIds.length + ')' : ''}
+                    </Button>
                 </View>
             </View>
         </View>

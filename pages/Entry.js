@@ -34,7 +34,7 @@ export default class Entry extends Component {
                     <TabBar.Item
                         icon={<Icon name="ordered-list"/>}
                         title="购物车"
-                        badge={20}
+                        // badge={20}
                         selected={this.state.selectedTab === 'shopCartTab'}
                         onPress={() => this.onChangeTab('shopCartTab')}
                     >
