@@ -37,7 +37,6 @@ export default class MyOrder extends Component {
         //用户登录
         StorageUtil.get("userInfo").then(user => {
             if (user) {
-                console.warn(user.company)
                 this.setState({userId: user.id, companyType: user.company.type}, () => this.init())
             } else {
                 //未登录
@@ -162,7 +161,7 @@ export default class MyOrder extends Component {
             {title: '已发货', status: 3},
             {title: '确认收货', status: 8},
         ]
-        return <View style={{flex:1}}>
+        return <View style={{flex: 1}}>
 
             <Tabs tabs={tabs} onChange={tab => this.onChangeTab(tab)} style={{marginTop: 15}}>
                 <ScrollView>
