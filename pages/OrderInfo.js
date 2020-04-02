@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
-import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight, AsyncStorage} from 'react-native'
+import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight, AsyncStorage, ScrollView} from 'react-native'
 import Constants from "../utils/constants"
 import StorageUtil from '../utils/StorageUtil'
+import {Checkbox} from "beeshell";
+import {Button} from "@ant-design/react-native";
 
 const hostPath = Constants.hostPath
 export default class OrderInfo extends Component {
     state = {
         totalMoney: 0.00,
+        length: 0
     }
     //计算总计
     total = () => {
@@ -16,7 +19,7 @@ export default class OrderInfo extends Component {
                 totalMoney += cart.price * cart.num
             })
         }
-        this.setState({totalMoney})
+        this.setState({totalMoney, length: this.state.carts.length})
     }
 
     componentWillMount() {
@@ -42,8 +45,44 @@ export default class OrderInfo extends Component {
     }
 
     render() {
-        return <View style={{flex: 1, alignItems: 'center', backgroundColor: 'white'}}>
-            <Text style={{margin: 50}}>订单页面</Text>
+        return <View style={{flex: 1}}>
+            <Text style={{color: 'grey', margin: 10, fontSize: 20}}>
+                {this.state.receiveAddress ? this.state.receiveAddress.realName : ''}
+                {this.state.receiveAddress ? '  ' + this.state.receiveAddress.mobile : ''}
+            </Text>
+            <Text style={{color: 'grey', marginLeft: 10}}>
+                {this.state.receiveAddress ? this.state.receiveAddress.address : ''}
+            </Text>
+            <ScrollView>
+                <Text>aaa</Text>
+            </ScrollView>
+            <View style={{flexDirection: 'row', marginRight: 10, alignSelf: 'flex-end'}}>
+                <Text>
+                    共
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        color: '#c81623',
+                        height: 50,
+                        lineHeight: 50
+                    }}>
+                        {this.state.length}
+                    </Text>
+                    件,总计:
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                        color: '#c81623',
+                        height: 50,
+                        lineHeight: 50
+                    }}>
+                        ¥{this.state.totalMoney+'  '}
+                    </Text>
+                </Text>
+                <Button type="warning" style={{width: 110}}>
+                    提交订单
+                </Button>
+            </View>
         </View>
     }
 }
