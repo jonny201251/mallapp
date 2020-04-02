@@ -44,6 +44,31 @@ export default class OrderInfo extends Component {
         })
     }
 
+    // 渲染每个商品
+    renderItem = () => {
+        if (this.state.carts) {
+            return this.state.carts.map(item => {
+                let imageUrl = item.image.replace('http://localhost:8080/mall', hostPath)
+
+                return <TouchableHighlight underlayColor="#fff" onPress={() => {
+                    //此处的spuId、skuId有问题，没有考虑到具有特有属性的商品
+                    Actions.itemDetail({spuId: item.skuId})
+                }}>
+                    <View>
+                        <View style={{flexDirection: 'row', padding: 10}}>
+                            <Image source={{uri: imageUrl}} style={{width: 150, height: 140, marginRight: 10}}/>
+                            <View style={{justifyContent: 'space-around'}}>
+                                <Text style={{fontWeight: 'bold'}}>{item.title}</Text>
+                                <Text style={{color: '#c81623'}}>¥{item.price}</Text>
+                                <Text style={{color: 'grey'}}>x{item.num}</Text>
+                            </View>
+                        </View>
+                    </View>
+                </TouchableHighlight>
+            })
+        }
+    }
+
     render() {
         return <View style={{flex: 1}}>
             <Text style={{color: 'grey', margin: 10, fontSize: 20}}>
@@ -54,7 +79,7 @@ export default class OrderInfo extends Component {
                 {this.state.receiveAddress ? this.state.receiveAddress.address : ''}
             </Text>
             <ScrollView>
-                <Text>aaa</Text>
+                {this.renderItem()}
             </ScrollView>
             <View style={{flexDirection: 'row', marginRight: 10, alignSelf: 'flex-end'}}>
                 <Text>
@@ -76,7 +101,7 @@ export default class OrderInfo extends Component {
                         height: 50,
                         lineHeight: 50
                     }}>
-                        ¥{this.state.totalMoney+'  '}
+                        ¥{this.state.totalMoney + '  '}
                     </Text>
                 </Text>
                 <Button type="warning" style={{width: 110}}>
