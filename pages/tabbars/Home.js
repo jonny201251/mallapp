@@ -41,7 +41,7 @@ export default class Home extends Component {
     }
     // 加载下一页
     loadNextPage = () => {
-        console.warn("loadNextPage")
+        // console.warn("loadNextPage")
         // 如果下一页的页码值，大于总页数了，直接return
         if ((this.state.currentPage + 1) > this.state.totalPage) {
             return
