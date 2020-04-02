@@ -159,7 +159,7 @@ export default class ShopCart extends Component {
     //结算
     jiesuan = () => {
         if (this.state.skuIds.length > 0) {
-
+            Actions.orderInfo({skuIds: this.state.skuIds})
         }
     }
 
@@ -190,7 +190,7 @@ export default class ShopCart extends Component {
                         lineHeight: 50,
                         paddingRight: 10
                     }}>总计:¥{this.state.totalMoney}</Text>
-                    <Button type="warning" style={{width: 100}} onClick={this.jiesuan}>
+                    <Button type="warning" style={{width: 100}} onPress={() => this.jiesuan()}>
                         结算{this.state.skuIds.length > 0 ? '(' + this.state.skuIds.length + ')' : ''}
                     </Button>
                 </View>
