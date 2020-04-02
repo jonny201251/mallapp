@@ -39,7 +39,8 @@ export default class MyOrder extends Component {
             if (user) {
                 this.setState({userId: user.id, companyType: user.company.type}, () => this.init())
             } else {
-                //未登录
+                //去登录
+                Actions.login()
             }
         })
     }
