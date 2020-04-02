@@ -5,6 +5,20 @@ import StorageUtil from '../utils/StorageUtil'
 
 const hostPath = Constants.hostPath
 export default class OrderInfo extends Component {
+    state = {
+        totalMoney: 0.00,
+    }
+    //计算总计
+    total = () => {
+        let totalMoney = 0
+        if (this.state.carts) {
+            this.state.carts.map(cart => {
+                totalMoney += cart.price * cart.num
+            })
+        }
+        this.setState({totalMoney})
+    }
+
     componentWillMount() {
         let skuIds = this.props.skuIds.join(',')
         StorageUtil.get("userInfo").then(user => {
@@ -19,7 +33,7 @@ export default class OrderInfo extends Component {
                 fetch(hostPath + '/app/order/list?userId=' + user.id + '&skuIds=' + skuIds)
                     .then(res => res.json())
                     .then(resp => {
-                        this.setState({carts: resp.data})
+                        this.setState({carts: resp.data}, () => this.total())
                     })
             } else {
                 //去登录
