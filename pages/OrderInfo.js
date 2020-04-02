@@ -7,10 +7,15 @@ const hostPath = Constants.hostPath
 export default class OrderInfo extends Component {
     componentWillMount() {
         let skuIds = this.props.skuIds.join(',')
-        //用户登录
         StorageUtil.get("userInfo").then(user => {
             if (user != null) {
-                this.setState({user})
+                //收货地址
+                fetch(hostPath + '/app/receiveAddress?userId=' + user.id)
+                    .then(res => res.json())
+                    .then(resp => {
+                        this.setState({receiveAddress: resp.data})
+                    })
+                //勾选的购物车
                 fetch(hostPath + '/app/order/list?userId=' + user.id + '&skuIds=' + skuIds)
                     .then(res => res.json())
                     .then(resp => {

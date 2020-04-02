@@ -21,18 +21,11 @@ export default class ShopCart extends Component {
             if (user) {
                 this.setState({userId: user.id})
                 //收货地址
-                StorageUtil.get("receiveAddress").then(value => {
-                    if (value == null) {
-                        fetch(hostPath + '/app/receiveAddress?userId=' + user.id)
-                            .then(res => res.json())
-                            .then(resp => {
-                                StorageUtil.set("receiveAddress", resp.data)
-                                this.setState({receiveAddress: resp.data})
-                            })
-                    } else {
-                        this.setState({receiveAddress: value})
-                    }
-                })
+                fetch(hostPath + '/app/receiveAddress?userId=' + user.id)
+                    .then(res => res.json())
+                    .then(resp => {
+                        this.setState({receiveAddress: resp.data})
+                    })
                 //获取购物车中的商品
                 fetch(hostPath + '/app/cart/list?userId=' + user.id)
                     .then(res => res.json())
