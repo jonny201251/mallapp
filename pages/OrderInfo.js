@@ -26,6 +26,7 @@ export default class OrderInfo extends Component {
     componentWillMount() {
         let skuIds = this.props.skuIds.join(',')
         StorageUtil.get("userInfo").then(user => {
+            this.setState({userId: user.id})
             if (user != null) {
                 //收货地址
                 fetch(hostPath + '/app/receiveAddress?userId=' + user.id)
@@ -71,7 +72,13 @@ export default class OrderInfo extends Component {
     }
 
     submit = () => {
-        Actions.MyOrder()
+        fetch(hostPath + '/app/order/create?userId=' + this.state.userId + '&skuIds=' + this.props.skuIds.join(','))
+            .then(res => res.json())
+            .then(resp => {
+                if (resp.code === 1) {
+                    Actions.MyOrder()
+                }
+            })
     }
 
     render() {
@@ -90,7 +97,7 @@ export default class OrderInfo extends Component {
                 <Text>
                     共
                     <Text style={{
-                        fontSize: 20,
+                        fontSize: 15,
                         fontWeight: 'bold',
                         color: '#c81623',
                         height: 50,
@@ -100,7 +107,7 @@ export default class OrderInfo extends Component {
                     </Text>
                     件,总计:
                     <Text style={{
-                        fontSize: 20,
+                        fontSize: 15,
                         fontWeight: 'bold',
                         color: '#c81623',
                         height: 50,
@@ -109,7 +116,7 @@ export default class OrderInfo extends Component {
                         ¥{this.state.totalMoney + '  '}
                     </Text>
                 </Text>
-                <Button type="warning" style={{width: 110}} onPress={() =>this.submit()}>
+                <Button type="warning" style={{width: 110}} onPress={() => this.submit()}>
                     提交订单
                 </Button>
             </View>
