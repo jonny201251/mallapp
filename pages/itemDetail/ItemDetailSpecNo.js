@@ -4,6 +4,7 @@ import {Button, Card, Carousel, Flex, Tabs, WingBlank} from '@ant-design/react-n
 import Constants from '../../utils/constants'
 import StorageUtil from '../../utils/StorageUtil'
 import {Actions} from "react-native-router-flux";
+import {Tip} from 'beeshell/dist/components/Tip'
 
 const hostPath = Constants.hostPath
 
@@ -89,6 +90,8 @@ class ItemDetailSpecNo extends Component {
                                     let skuIds = []
                                     skuIds.push(sku.id)
                                     Actions.orderInfo({skuIds})
+                                } else {
+                                    Tip.show('加入购物车成功！', 2000, 'center')
                                 }
                             } else {
                                 //操作失败！
