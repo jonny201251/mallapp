@@ -1,16 +1,17 @@
 import React, {Component} from 'react'
-import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight, AsyncStorage, ScrollView} from 'react-native'
+import {Image, ScrollView, Text, TouchableHighlight, View} from 'react-native'
 import Constants from "../utils/constants"
 import StorageUtil from '../utils/StorageUtil'
-import {Checkbox} from "beeshell";
 import {Button} from "@ant-design/react-native";
 import {Actions} from "react-native-router-flux";
+import {Tip} from "beeshell";
 
 const hostPath = Constants.hostPath
 export default class OrderInfo extends Component {
     state = {
         totalMoney: 0.00,
-        length: 0
+        length: 0,
+        moneyLimit: 0
     }
     //计算总计
     total = () => {
@@ -39,6 +40,12 @@ export default class OrderInfo extends Component {
                     .then(res => res.json())
                     .then(resp => {
                         this.setState({carts: resp.data}, () => this.total())
+                    })
+                //金额限制
+                fetch(hostPath + '/app/moneyLimit/getMoney?userId=' + user.id)
+                    .then(res => res.json())
+                    .then(resp => {
+                        this.setState({moneyLimit: resp.data})
                     })
             } else {
                 //去登录
@@ -73,13 +80,18 @@ export default class OrderInfo extends Component {
     }
 
     submit = () => {
-        fetch(hostPath + '/app/order/create?userId=' + this.state.userId + '&skuIds=' + this.props.skuIds.join(','))
-            .then(res => res.json())
-            .then(resp => {
-                if (resp.code === 1) {
-                    Actions.MyOrder()
-                }
-            })
+        if (this.state.totalMoney <= this.state.moneyLimit) {
+            fetch(hostPath + '/app/order/create?userId=' + this.state.userId + '&skuIds=' + this.props.skuIds.join(','))
+                .then(res => res.json())
+                .then(resp => {
+                    if (resp.code === 1) {
+                        Actions.MyOrder()
+                    }
+                })
+        } else {
+            Tip.show("已经超过了季度金额:" + this.state.moneyLimit + "元!", 2000, 'center')
+        }
+
     }
 
     render() {

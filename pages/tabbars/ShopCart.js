@@ -158,11 +158,6 @@ export default class ShopCart extends Component {
     }
 
     render() {
-        if (this.state.skuIds.length === 0) {
-            return <View style={{flex: 1}}>
-                <Text style={{color: 'grey', margin: 50, textAlign: 'center'}}>还没有商品哦!</Text>
-            </View>
-        }
         return <View style={{flex: 1}}>
             <Text style={{marginTop: 50, textAlign: 'center'}}>购物车</Text>
             <Text style={{color: 'grey', margin: 10}}>
