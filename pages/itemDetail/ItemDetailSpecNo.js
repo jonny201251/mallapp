@@ -3,6 +3,7 @@ import {Image, ScrollView, Text, View} from 'react-native'
 import {Button, Card, Carousel, Flex, Tabs, WingBlank} from '@ant-design/react-native'
 import Constants from '../../utils/constants'
 import StorageUtil from '../../utils/StorageUtil'
+import {Actions} from "react-native-router-flux";
 
 const hostPath = Constants.hostPath
 
@@ -73,7 +74,7 @@ class ItemDetailSpecNo extends Component {
         } else if ("increment" === type) {
             //商品数量的加法
             this.setState({num: this.state.num + 1})
-        } else if ("add" === type) {
+        } else if ("add" === type || "buy" === type) {
             //加入购物车
             let sku = this.state.itemData.skus[0]
             let cartData = "skuId=" + sku.id + "&title=" + sku.title + "&image=" + sku.images.split(',')[0] + "&price=" + sku.price + "&num=" + this.state.num
@@ -83,7 +84,13 @@ class ItemDetailSpecNo extends Component {
                     fetch(hostPath + '/app/cart/add?' + cartData)
                         .then(res => res.json())
                         .then(resp => {
-                            if (resp.code !== 1) {
+                            if (resp.code === 1) {
+                                if ("buy" === type) {
+                                    let skuIds = []
+                                    skuIds.push(sku.id)
+                                    Actions.orderInfo({skuIds})
+                                }
+                            } else {
                                 //操作失败！
                             }
                         })
@@ -91,9 +98,6 @@ class ItemDetailSpecNo extends Component {
                     //去登录
                 }
             })
-        } else if ("buy" === type) {
-            //立即购买
-
         }
     }
 
