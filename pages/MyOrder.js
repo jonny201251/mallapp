@@ -68,7 +68,7 @@ export default class MyOrder extends Component {
             return this.state.orderData.dataList.map(order => {
                 return <Card style={{margin: 5}}>
                     <Card.Header
-                        title='北京德高航空检测材料有限责任公司'
+                        title={order.seller.name}
                         extra={this.orderStatus(order.orderStatus.status)}
                     />
                     <Card.Body>
