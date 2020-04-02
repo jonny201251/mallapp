@@ -4,6 +4,7 @@ import Constants from "../utils/constants"
 import StorageUtil from '../utils/StorageUtil'
 import {Checkbox} from "beeshell";
 import {Button} from "@ant-design/react-native";
+import {Actions} from "react-native-router-flux";
 
 const hostPath = Constants.hostPath
 export default class OrderInfo extends Component {
@@ -69,6 +70,10 @@ export default class OrderInfo extends Component {
         }
     }
 
+    submit = () => {
+        Actions.MyOrder()
+    }
+
     render() {
         return <View style={{flex: 1}}>
             <Text style={{color: 'grey', margin: 10, fontSize: 20}}>
@@ -104,7 +109,7 @@ export default class OrderInfo extends Component {
                         ¥{this.state.totalMoney + '  '}
                     </Text>
                 </Text>
-                <Button type="warning" style={{width: 110}}>
+                <Button type="warning" style={{width: 110}} onPress={() =>this.submit()}>
                     提交订单
                 </Button>
             </View>

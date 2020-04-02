@@ -174,7 +174,7 @@ export default class ShopCart extends Component {
 
                     <Checkbox.Item label='全选' value={1}/>
                 </Checkbox>
-                <View style={{flexDirection: 'row', paddingLeft: '25%'}}>
+                <View style={{flexDirection: 'row', paddingLeft: '22%'}}>
                     <Text style={{
                         fontSize: 20,
                         fontWeight: 'bold',

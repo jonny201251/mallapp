@@ -6,6 +6,7 @@ import Entry from './pages/Entry'
 import ItemDetail from './pages/ItemDetail'
 import ItemList from './pages/ItemList'
 import OrderInfo from './pages/OrderInfo'
+import MyOrder from './pages/MyOrder'
 
 export default class App extends Component {
     state = {
@@ -41,6 +42,7 @@ export default class App extends Component {
                 <Scene key="itemDetail" component={ItemDetail} title="商品详情页"/>
                 <Scene key="itemList" component={ItemList} title="商品搜索页"/>
                 <Scene key="orderInfo" component={OrderInfo} title="订单结算页"/>
+                <Scene key="MyOrder" component={MyOrder} title="我的订单"/>
             </Stack>
         </Router>
     }
