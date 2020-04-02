@@ -35,7 +35,7 @@ export default class OrderInfo extends Component {
                         this.setState({receiveAddress: resp.data})
                     })
                 //勾选的购物车
-                fetch(hostPath + '/app/order/list?userId=' + user.id + '&skuIds=' + skuIds)
+                fetch(hostPath + '/app/order/getCarts?userId=' + user.id + '&skuIds=' + skuIds)
                     .then(res => res.json())
                     .then(resp => {
                         this.setState({carts: resp.data}, () => this.total())
