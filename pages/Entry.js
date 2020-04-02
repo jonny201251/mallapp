@@ -5,7 +5,6 @@ import customTheme from '../customTheme'
 import Home from './tabbars/Home'
 import ShopCart from './tabbars/ShopCart'
 import Me from './tabbars/Me'
-import MyOrder from './MyOrder'
 //入口Tab页导航
 export default class Entry extends Component {
     state = {
@@ -47,8 +46,7 @@ export default class Entry extends Component {
                         selected={this.state.selectedTab === 'meTab'}
                         onPress={() => this.onChangeTab('meTab')}
                     >
-                        <MyOrder/>
-                        {/*<Me/>*/}
+                        <Me/>
                     </TabBar.Item>
                 </TabBar>
             </Provider>
