@@ -13,19 +13,6 @@ export default class Login extends Component {
         value2: ''
     }
 
-    componentWillMount() {
-        //用户登录
-        StorageUtil.get("userInfo").then(user => {
-            if (user == null) {
-                fetch(hostPath + '/app/login?username=范海峰&password=1')
-                    .then(res => res.json())
-                    .then(resp => {
-                        StorageUtil.set("userInfo", resp.data)
-                    })
-            }
-        })
-    }
-
     onPress = () => {
         if (this.state.value1.length > 0 && this.state.value2.length > 0) {
             fetch(hostPath + '/app/login?username=' + this.state.value1 + '&password=' + this.state.value2)
