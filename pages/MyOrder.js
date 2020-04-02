@@ -66,7 +66,7 @@ export default class MyOrder extends Component {
     renderOrder = () => {
         if (this.state.orderData) {
             return this.state.orderData.dataList.map(order => {
-                return <Card style={{margin: 5}}>
+                return <Card style={{margin: 3}}>
                     <Card.Header
                         title={order.seller.name}
                         extra={this.orderStatus(order.orderStatus.status)}
@@ -76,6 +76,9 @@ export default class MyOrder extends Component {
                             {this.renderItem(order.orderDetails)}
                         </View>
                     </Card.Body>
+                    <Card.Footer
+                        extra={`共${order.orderDetails.length}件,总计:${order.totalPay}`}
+                    />
                 </Card>
             })
         }
