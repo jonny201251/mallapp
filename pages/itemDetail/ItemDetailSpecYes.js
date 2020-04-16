@@ -1,8 +1,13 @@
 import React, {Component} from 'react'
-import {AppRegistry, StyleSheet, View, Text, Image, TouchableHighlight} from 'react-native'
+import {Image, ScrollView, Text, View} from 'react-native'
+import {Button, Card, Carousel, Flex, Tabs, WingBlank} from '@ant-design/react-native'
 import Constants from '../../utils/constants'
+import StorageUtil from '../../utils/StorageUtil'
+import {Actions} from "react-native-router-flux"
+import {Tip} from 'beeshell/dist/components/Tip'
 
 const hostPath = Constants.hostPath
+
 
 //有特有属性
 class ItemDetailSpecYes extends Component {
