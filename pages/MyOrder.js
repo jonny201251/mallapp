@@ -11,7 +11,11 @@ export default class MyOrder extends Component {
     state = {
         currentPage: 1,
         pageSize: 5,
-        status: 100, //状态：全部
+        status: 100, //状态：全部,
+        itemNum: {
+            '0': 0,
+            '8': 0
+        }
     }
 
     init = () => {
@@ -165,6 +169,17 @@ export default class MyOrder extends Component {
         })
     }
 
+    renderTab = (tab) => {
+        let itemNum = this.state.itemNum
+        if (tab.status === 0 && itemNum['0'] > 0) {
+            return <Text>{tab.title}<Text style={{color: 'red', fontWeight: 'bold'}}>{'(' + itemNum['0'] + ')'}</Text></Text>
+        } else if (tab.status === 8 && itemNum['8'] > 0) {
+            return <Text>{tab.title}<Text style={{color: 'red', fontWeight: 'bold'}}>{'(' + itemNum['8'] + ')'}</Text></Text>
+        } else {
+            return <Text>{tab.title}</Text>
+        }
+
+    }
 
     render() {
         const tabs = [
@@ -175,7 +190,8 @@ export default class MyOrder extends Component {
         ]
         return <View style={{flex: 1}}>
 
-            <Tabs tabs={tabs} onChange={tab => this.onChangeTab(tab)} style={{marginTop: 15}}>
+            <Tabs tabs={tabs} onChange={tab => this.onChangeTab(tab)} style={{marginTop: 15}}
+                  renderTab={this.renderTab}>
                 <ScrollView>
                     {this.renderOrder()}
                 </ScrollView>
