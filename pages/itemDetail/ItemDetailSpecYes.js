@@ -12,8 +12,7 @@ const hostPath = Constants.hostPath
 class ItemDetailSpecYes extends Component {
     state = {
         itemData: {},
-        num: 1,
-        indexes: [0, 0, 0]
+        num: 1
     }
 
     componentWillMount() {
@@ -23,7 +22,16 @@ class ItemDetailSpecYes extends Component {
         itemData.skus.map(item => {
             skuMap[item.indexes] = item
         })
-        this.setState({itemData, skuMap, sku: itemData.skus[0]})
+        //生成indexes
+        let indexes = []
+        itemData.specs.forEach(group => {
+            group.params.forEach(param => {
+                if (param.generic === 0) {
+                    indexes.push(0)
+                }
+            })
+        })
+        this.setState({itemData, skuMap, sku: itemData.skus[0], indexes})
     }
 
     //显示商品详情
@@ -129,36 +137,66 @@ class ItemDetailSpecYes extends Component {
             })
             //显示特有属性
             let indexes = this.state.indexes
-            let j = -1
-            return keys.map((key, i) => {
-                j = indexes[i]
+            if (indexes.length === 1) {
+                let selectIndex = indexes[0]
+                let key = keys[0]
                 return <View style={{flexDirection: "row", flexWrap: 'wrap', marginTop: 5}}>
                     <Text>{params[key] + '  '}</Text>
                     {
                         specialSpec[key].map((item, index) => {
-                            if (index === j) {
-                                return <Buttonn onPress={() => this.onPresss(i + '_' + index)} type='info' size={'sm'}
+                            if (index === selectIndex) {
+                                return <Buttonn onPress={() => this.onPresss(+'0_' + index)} type='info'
+                                                size={'sm'}
                                                 style={{marginRight: 5, height: 30}}>{item}</Buttonn>
                             } else {
-                                return <Buttonn onPress={() => this.onPresss(i + '_' + index)} size={'sm'}
+                                return <Buttonn onPress={() => this.onPresss('0_' + index)} size={'sm'}
                                                 style={{marginRight: 5, height: 30}}>{item}</Buttonn>
                             }
                         })
                     }
                 </View>
-            })
+            } else {
+                let j = -1
+                return keys.map((key, i) => {
+                    j = indexes[i]
+                    return <View style={{flexDirection: "row", flexWrap: 'wrap', marginTop: 5}}>
+                        <Text>{params[key] + '  '}</Text>
+                        {
+                            specialSpec[key].map((item, index) => {
+                                if (index === j) {
+                                    return <Buttonn onPress={() => this.onPresss(i + '_' + index)} type='info'
+                                                    size={'sm'}
+                                                    style={{marginRight: 5, height: 30}}>{item}</Buttonn>
+                                } else {
+                                    return <Buttonn onPress={() => this.onPresss(i + '_' + index)} size={'sm'}
+                                                    style={{marginRight: 5, height: 30}}>{item}</Buttonn>
+                                }
+                            })
+                        }
+                    </View>
+                })
+            }
         }
     }
 
     onPresss = (value) => {
         let skuMap = this.state.skuMap
         let indexes = this.state.indexes
-        let valArr = value.split('_')
-        indexes[valArr[0]] = parseInt(valArr[1])
-        let tmp = indexes.join('_')
-        //取值
-        let sku = skuMap[tmp]
-        this.setState({indexes, sku}, () => this.specialSpec())
+        if (indexes.length === 1) {
+            let valArr = value.split('_')
+            //取值
+            let sku = skuMap[valArr[1]]
+
+            indexes[0] = parseInt(valArr[1])
+            this.setState({indexes, sku}, () => this.specialSpec())
+        } else {
+            let valArr = value.split('_')
+            indexes[valArr[0]] = parseInt(valArr[1])
+            let tmp = indexes.join('_')
+            //取值
+            let sku = skuMap[tmp]
+            this.setState({indexes, sku}, () => this.specialSpec())
+        }
     }
 
     render() {
