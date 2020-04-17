@@ -79,7 +79,7 @@ export default class MyOrder extends Component {
         //0、等待商家发货 3、已发货,未确认 8、确认收货 4、交易成功 7、取消订单
         let arr = []
         let companyType = this.state.companyType
-        if (companyType === 1) {
+        if (companyType === '1') {
             //分厂人员：取消订单、确认收货
             if (order.orderStatus.status === 0) {
                 arr.push(<Button size="sm" style={{paddingLeft: 5}}
@@ -89,13 +89,13 @@ export default class MyOrder extends Component {
                 arr.push(<Button size="sm" style={{paddingLeft: 5}}
                                  onPress={() => this.onPress(order.orderId, '8')}>确认收货</Button>)
             }
-        } else if (companyType === 2) {
+        } else if (companyType === '2') {
             //商家：确认发货
             if (order.orderStatus.status === 0) {
                 arr.push(<Button size="sm" style={{paddingLeft: 5}}
                                  onPress={() => this.onPress(order.orderId, '3')}>确认发货</Button>)
             }
-        } else if (companyType === 3) {
+        } else if (companyType === '3') {
             //管理员：取消订单
             if (order.orderStatus.status === 0) {
                 arr.push(<Button size="sm" style={{paddingLeft: 5}}
