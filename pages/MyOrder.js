@@ -135,6 +135,13 @@ export default class MyOrder extends Component {
     // 渲染每个商品
     renderItem = (orderDetails) => {
         return orderDetails.map(item => {
+            let title = item.title
+            let title1 = title
+            let title2 = ''
+            if (title.length >= 16) {
+                title1 = title.substr(0, 16)
+                title2 = title.substr(16, 10)
+            }
             let imageUrl = item.image.replace('http://localhost:8080/mall', hostPath)
             return <TouchableHighlight underlayColor="#fff" onPress={() => {
                 //此处的spuId、skuId有问题，没有考虑到具有特有属性的商品
@@ -142,9 +149,12 @@ export default class MyOrder extends Component {
             }}>
                 <View>
                     <View style={{flexDirection: 'row', padding: 10}}>
-                        <Image source={{uri: imageUrl}} style={{width: 150, height: 140, marginRight: 10}}/>
+                        <Image source={{uri: imageUrl}} style={{width: 150, height: 140, marginRight: 5}}/>
                         <View style={{justifyContent: 'space-around'}}>
-                            <Text style={{fontWeight: 'bold'}}>{item.title}</Text>
+                            <View>
+                                <Text style={{fontWeight: 'bold'}}>{title1}</Text>
+                                <Text style={{fontWeight: 'bold'}}>{title2}</Text>
+                            </View>
                             <Text style={{color: '#c81623'}}>¥{item.price}</Text>
                             <Text style={{color: 'grey'}}>x{item.num}</Text>
                         </View>
