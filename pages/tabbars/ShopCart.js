@@ -68,7 +68,7 @@ export default class ShopCart extends Component {
 
                 return <TouchableHighlight underlayColor="#fff" onPress={() => {
                     //此处的spuId、skuId有问题，没有考虑到具有特有属性的商品
-                    Actions.itemDetail({spuId: item.skuId})
+                    Actions.itemDetail({spuId: item.skuId+'_skuId'})
                 }}>
                     <View>
                         <View style={{flexDirection: 'row', padding: 10}}>
