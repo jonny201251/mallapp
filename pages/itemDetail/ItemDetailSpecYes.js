@@ -12,12 +12,18 @@ const hostPath = Constants.hostPath
 class ItemDetailSpecYes extends Component {
     state = {
         itemData: {},
-        num: 1
+        num: 1,
+        indexes: [0, 0, 0]
     }
 
     componentWillMount() {
         let itemData = this.props.itemData
-        this.setState({itemData})
+        //遍历skus
+        let skuMap = {}
+        itemData.skus.map(item => {
+            skuMap[item.indexes] = item
+        })
+        this.setState({itemData, skuMap, sku: itemData.skus[0]})
     }
 
     //显示商品详情
@@ -77,7 +83,7 @@ class ItemDetailSpecYes extends Component {
             this.setState({num: this.state.num + 1})
         } else if ("add" === type || "buy" === type) {
             //加入购物车
-            let sku = this.state.itemData.skus[0]
+            let sku = this.state.sku
             let cartData = "skuId=" + sku.id + "&title=" + sku.title + "&image=" + sku.images.split(',')[0] + "&price=" + sku.price + "&num=" + this.state.num
             StorageUtil.get("userInfo").then(user => {
                 if (user) {
@@ -122,12 +128,21 @@ class ItemDetailSpecYes extends Component {
                 })
             })
             //显示特有属性
-            return keys.map(key => {
+            let indexes = this.state.indexes
+            let j = -1
+            return keys.map((key, i) => {
+                j = indexes[i]
                 return <View style={{flexDirection: "row", flexWrap: 'wrap', marginTop: 5}}>
                     <Text>{params[key] + '  '}</Text>
                     {
-                        specialSpec[key].map(tmp => {
-                            return <Buttonn size={'sm'} style={{marginRight: 5,height:30}}>{tmp}</Buttonn>
+                        specialSpec[key].map((item, index) => {
+                            if (index === j) {
+                                return <Buttonn onPress={() => this.onPresss(i + '_' + index)} type='info' size={'sm'}
+                                                style={{marginRight: 5, height: 30}}>{item}</Buttonn>
+                            } else {
+                                return <Buttonn onPress={() => this.onPresss(i + '_' + index)} size={'sm'}
+                                                style={{marginRight: 5, height: 30}}>{item}</Buttonn>
+                            }
                         })
                     }
                 </View>
@@ -135,9 +150,20 @@ class ItemDetailSpecYes extends Component {
         }
     }
 
+    onPresss = (value) => {
+        let skuMap = this.state.skuMap
+        let indexes = this.state.indexes
+        let valArr = value.split('_')
+        indexes[valArr[0]] = parseInt(valArr[1])
+        let tmp = indexes.join('_')
+        //取值
+        let sku = skuMap[tmp]
+        this.setState({indexes, sku}, () => this.specialSpec())
+    }
+
     render() {
         const tabs = [{title: '基本信息'}, {title: '商品详情'}, {title: '规格参数'}];
-        let sku = this.state.itemData.skus[0]
+        let sku = this.state.sku
         return (
             <Tabs tabs={tabs}>
                 <View>
