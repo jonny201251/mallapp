@@ -14,7 +14,7 @@ export default class MyOrder extends Component {
         status: 100, //状态：全部,
         itemNum: {
             '0': 0,
-            '8': 0
+            '3': 0
         }
     }
 
@@ -29,7 +29,16 @@ export default class MyOrder extends Component {
                 .then(res => res.json())
                 .then(resp => {
                     if (resp.code === 1) {
-                        this.setState({orderData: resp.data})
+                        let num0 = 0, num3 = 0
+                        resp.data.dataList.map(order => {
+                            if (order.orderStatus.status === 0) {
+                                num0 += 1
+                            } else if (order.orderStatus.status === 3) {
+                                num3 += 1
+                            }
+                        })
+                        let itemNum = {'0': num0, '3': num3}
+                        this.setState({orderData: resp.data, itemNum})
                         // console.warn(resp.data)
                     }
 
@@ -86,23 +95,23 @@ export default class MyOrder extends Component {
         if (companyType === 1) {
             //分厂人员：取消订单、确认收货
             if (order.orderStatus.status === 0) {
-                arr.push(<Button size="sm" style={{paddingLeft: 5}}
+                arr.push(<Button type="info" size="sm" style={{paddingLeft: 5}}
                                  onPress={() => this.onPress(order.orderId, '7')}>取消订单</Button>)
             }
             if (order.orderStatus.status === 3) {
-                arr.push(<Button size="sm" style={{paddingLeft: 5}}
+                arr.push(<Button type="info" size="sm" style={{paddingLeft: 5}}
                                  onPress={() => this.onPress(order.orderId, '8')}>确认收货</Button>)
             }
         } else if (companyType === 2) {
             //商家：确认发货
             if (order.orderStatus.status === 0) {
-                arr.push(<Button size="sm" style={{paddingLeft: 5}}
+                arr.push(<Button type="info" size="sm" style={{paddingLeft: 5}}
                                  onPress={() => this.onPress(order.orderId, '3')}>确认发货</Button>)
             }
         } else if (companyType === 3) {
             //管理员：取消订单
             if (order.orderStatus.status === 0) {
-                arr.push(<Button size="sm" style={{paddingLeft: 5}}
+                arr.push(<Button type="info" size="sm" style={{paddingLeft: 5}}
                                  onPress={() => this.onPress(order.orderId, '7')}>取消订单</Button>)
             }
         }
@@ -174,9 +183,9 @@ export default class MyOrder extends Component {
         if (tab.status === 0 && itemNum['0'] > 0) {
             return <Text>{tab.title}<Text
                 style={{color: 'red', fontWeight: 'bold'}}>{'(' + itemNum['0'] + ')'}</Text></Text>
-        } else if (tab.status === 8 && itemNum['8'] > 0) {
+        } else if (tab.status === 3 && itemNum['3'] > 0) {
             return <Text>{tab.title}<Text
-                style={{color: 'red', fontWeight: 'bold'}}>{'(' + itemNum['8'] + ')'}</Text></Text>
+                style={{color: 'red', fontWeight: 'bold'}}>{'(' + itemNum['3'] + ')'}</Text></Text>
         } else {
             return <Text>{tab.title}</Text>
         }
