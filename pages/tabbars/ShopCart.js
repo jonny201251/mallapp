@@ -57,6 +57,13 @@ export default class ShopCart extends Component {
     renderItem = () => {
         if (this.state.carts) {
             return this.state.carts.map(item => {
+                let title = item.title
+                let title1 = title
+                let title2 = ''
+                if (title.length >= 14) {
+                    title1 = title.substr(0, 14)
+                    title2 = title.substr(14, 10)
+                }
                 let imageUrl = item.image.replace('http://localhost:8080/mall', hostPath)
 
                 return <TouchableHighlight underlayColor="#fff" onPress={() => {
@@ -65,7 +72,7 @@ export default class ShopCart extends Component {
                 }}>
                     <View>
                         <View style={{flexDirection: 'row', padding: 10}}>
-                            <View style={{justifyContent: 'space-around', marginRight: 10}}>
+                            <View style={{justifyContent: 'space-around', marginRight: 5}}>
                                 <Checkbox
                                     style={{backgroundColor: '#F8F8F8'}}
                                     value={this.state.skuIds}
@@ -73,9 +80,12 @@ export default class ShopCart extends Component {
                                     <Checkbox.Item label='' value={item.skuId}/>
                                 </Checkbox>
                             </View>
-                            <Image source={{uri: imageUrl}} style={{width: 150, height: 140, marginRight: 10}}/>
+                            <Image source={{uri: imageUrl}} style={{width: 150, height: 140, marginRight: 5}}/>
                             <View style={{justifyContent: 'space-around'}}>
-                                <Text style={{fontWeight: 'bold'}}>{item.title}</Text>
+                                <View>
+                                    <Text style={{fontWeight: 'bold'}}>{title1}</Text>
+                                    <Text style={{fontWeight: 'bold'}}>{title2}</Text>
+                                </View>
                                 <Text style={{color: '#c81623'}}>¥{item.price}</Text>
                                 <View style={{flexDirection: 'row'}}>
                                     <Button size='small' style={{width: 50}}
