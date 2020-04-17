@@ -28,7 +28,7 @@ class ItemDetail extends Component {
         return (
             <View style={{flex: 1}}>
                 {
-                    this.state.itemData.specType === 'complexSpecYes' ?
+                    this.state.itemData.specType === 'complexSpecHave' ?
                         <ItemDetailSpecYes itemData={this.state.itemData}/> :
                         <ItemDetailSpecNo itemData={this.state.itemData}/>
                 }
