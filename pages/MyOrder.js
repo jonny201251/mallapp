@@ -120,6 +120,7 @@ export default class MyOrder extends Component {
                             </View>
                         </Card.Body>
                         <Card.Footer
+                            content={`订单号：${order.orderId}`}
                             extra={`共${order.orderDetails.length}件,总计:${order.totalPay}`}
                         />
                         <View style={{flexDirection: 'row', marginTop: 10, marginRight: 5, alignSelf: 'flex-end'}}>
@@ -145,7 +146,7 @@ export default class MyOrder extends Component {
             let imageUrl = item.image.replace('http://localhost:8080/mall', hostPath)
             return <TouchableHighlight underlayColor="#fff" onPress={() => {
                 //此处的spuId、skuId有问题，没有考虑到具有特有属性的商品
-                Actions.orderDetail({orderId: item.orderId})
+                // Actions.orderDetail({orderId: item.orderId})
             }}>
                 <View>
                     <View style={{flexDirection: 'row', padding: 10}}>
