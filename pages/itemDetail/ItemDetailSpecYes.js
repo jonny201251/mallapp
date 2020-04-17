@@ -4,7 +4,7 @@ import {Button, Card, Carousel, Flex, Tabs, WingBlank} from '@ant-design/react-n
 import Constants from '../../utils/constants'
 import StorageUtil from '../../utils/StorageUtil'
 import {Actions} from "react-native-router-flux";
-import {Tip} from 'beeshell/dist/components/Tip'
+import {Tip, Button as Buttonn} from 'beeshell'
 
 const hostPath = Constants.hostPath
 
@@ -123,11 +123,11 @@ class ItemDetailSpecYes extends Component {
             })
             //显示特有属性
             return keys.map(key => {
-                return <View style={{flexDirection: "row",flexWrap: 'wrap'}}>
+                return <View style={{flexDirection: "row", flexWrap: 'wrap', marginTop: 5}}>
                     <Text>{params[key] + '  '}</Text>
                     {
                         specialSpec[key].map(tmp => {
-                            return <Text>{tmp}</Text>
+                            return <Buttonn size={'sm'} style={{marginRight: 5,height:30}}>{tmp}</Buttonn>
                         })
                     }
                 </View>
@@ -155,15 +155,17 @@ class ItemDetailSpecYes extends Component {
                     <WingBlank>
                         <ScrollView>
                             <Text style={{
-                                fontSize: 25,
+                                fontSize: 20,
                                 fontWeight: 'bold',
                                 color: '#c81623',
-                                marginTop: 15
+                                marginTop: 5
                             }}>¥{sku.price}</Text>
-                            <Text style={{fontSize: 20, fontWeight: 'bold', marginTop: 15}}>{sku.title}</Text>
+                            <Text style={{fontSize: 18, marginTop: 5}}>{sku.title}</Text>
                             <Text>{this.state.itemData.subTitle}</Text>
-                            <View style={{flexDirection: 'row'}}>
-                                <Button size='small' style={{width: 50}} onPress={() => this.onPress('decrement')}><Text
+                            <View style={{flexDirection: 'row', marginBottom: 10}}>
+                                <Text>数量</Text>
+                                <Button size='small' style={{width: 50, marginLeft: 5}}
+                                        onPress={() => this.onPress('decrement')}><Text
                                     style={{fontWeight: '700px'}}>-</Text></Button>
                                 <Text style={{
                                     width: 50,
@@ -174,10 +176,10 @@ class ItemDetailSpecYes extends Component {
                                         onPress={() => this.onPress('increment')}>+</Button>
                             </View>
                             {this.specialSpec()}
-                            <Flex justify="between" style={{marginTop: 60}}>
-                                <Button type="primary" style={{width: '47%'}}
+                            <Flex justify="between" style={{marginTop: 10}}>
+                                <Button size={'sm'} type="primary" style={{width: '47%', height: 40}}
                                         onPress={() => this.onPress('add')}>加入购物车</Button>
-                                <Button type="warning" style={{width: '47%'}}
+                                <Button size={'sm'} type="warning" style={{width: '47%', height: 40}}
                                         onPress={() => this.onPress('buy')}>立即购买</Button>
                             </Flex>
                         </ScrollView>
