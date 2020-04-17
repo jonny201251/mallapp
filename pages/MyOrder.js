@@ -172,9 +172,11 @@ export default class MyOrder extends Component {
     renderTab = (tab) => {
         let itemNum = this.state.itemNum
         if (tab.status === 0 && itemNum['0'] > 0) {
-            return <Text>{tab.title}<Text style={{color: 'red', fontWeight: 'bold'}}>{'(' + itemNum['0'] + ')'}</Text></Text>
+            return <Text>{tab.title}<Text
+                style={{color: 'red', fontWeight: 'bold'}}>{'(' + itemNum['0'] + ')'}</Text></Text>
         } else if (tab.status === 8 && itemNum['8'] > 0) {
-            return <Text>{tab.title}<Text style={{color: 'red', fontWeight: 'bold'}}>{'(' + itemNum['8'] + ')'}</Text></Text>
+            return <Text>{tab.title}<Text
+                style={{color: 'red', fontWeight: 'bold'}}>{'(' + itemNum['8'] + ')'}</Text></Text>
         } else {
             return <Text>{tab.title}</Text>
         }
