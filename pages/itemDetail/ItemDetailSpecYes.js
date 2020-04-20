@@ -4,7 +4,7 @@ import {Button, Card, Carousel, Flex, Tabs, WingBlank} from '@ant-design/react-n
 import Constants from '../../utils/constants'
 import StorageUtil from '../../utils/StorageUtil'
 import {Actions} from "react-native-router-flux";
-import {Tip, Button as Buttonn} from 'beeshell'
+import {Tip, Button as Buttonn, BottomModal} from 'beeshell'
 
 const hostPath = Constants.hostPath
 
@@ -180,6 +180,7 @@ class ItemDetailSpecYes extends Component {
     }
 
     onPresss = (value) => {
+        this.setState({num: 1})
         let skuMap = this.state.skuMap
         let indexes = this.state.indexes
         if (indexes.length === 1) {
@@ -223,7 +224,7 @@ class ItemDetailSpecYes extends Component {
                                 fontWeight: 'bold',
                                 color: '#c81623',
                                 marginTop: 5
-                            }}>¥{sku.price}</Text>
+                            }}>¥{sku.price * this.state.num}</Text>
                             <Text style={{fontSize: 18, marginTop: 5}}>{sku.title}</Text>
                             <Text>{this.state.itemData.subTitle}</Text>
                             <View style={{flexDirection: 'row', marginBottom: 10}}>
@@ -239,8 +240,63 @@ class ItemDetailSpecYes extends Component {
                                 <Button size='small' style={{width: 50}}
                                         onPress={() => this.onPress('increment')}>+</Button>
                             </View>
-                            {this.specialSpec()}
-                            <Flex justify="between" style={{marginTop: 10}}>
+                            <View>
+                                <Button
+                                    style={{width: 100, height: 30}}
+                                    size='sm'
+                                    onPress={() => {
+                                        this.bottomModal.open()
+                                    }}
+                                >
+                                    选择规格
+                                </Button>
+                                <BottomModal
+                                    ref={(c) => {
+                                        this.bottomModal = c
+                                    }}
+                                    title='选择规格'
+                                    cancelable={true}
+                                    leftCallback={() => {
+                                        this.bottomModal.close()
+                                    }}
+                                    leftLabelText={'关闭'}
+                                    rightLabelText={''}
+                                >
+                                    <View
+                                        style={{
+                                            backgroundColor: '#fff',
+                                            height: 400,
+                                            justifyContent: 'center'
+                                        }}
+                                    >
+                                        <WingBlank>
+                                            <Text style={{
+                                                fontSize: 20,
+                                                fontWeight: 'bold',
+                                                color: '#c81623',
+                                                marginTop: 5
+                                            }}>¥{sku.price * this.state.num}</Text>
+                                            <Text style={{fontSize: 18, marginTop: 5}}>{sku.title}</Text>
+                                            <Text>{this.state.itemData.subTitle}</Text>
+                                            <View style={{flexDirection: 'row', marginBottom: 10}}>
+                                                <Text>数量</Text>
+                                                <Button size='small' style={{width: 50, marginLeft: 5}}
+                                                        onPress={() => this.onPress('decrement')}><Text
+                                                    style={{fontWeight: '700px'}}>-</Text></Button>
+                                                <Text style={{
+                                                    width: 50,
+                                                    backgroundColor: '#F8F8F8',
+                                                    textAlign: 'center'
+                                                }}>{this.state.num}</Text>
+                                                <Button size='small' style={{width: 50}}
+                                                        onPress={() => this.onPress('increment')}>+</Button>
+                                            </View>
+                                            {this.specialSpec()}
+                                        </WingBlank>
+                                    </View>
+                                </BottomModal>
+                            </View>
+                            <Flex justify="between" style={{marginTop: 15}}>
                                 <Button size={'sm'} type="primary" style={{width: '47%', height: 40}}
                                         onPress={() => this.onPress('add')}>加入购物车</Button>
                                 <Button size={'sm'} type="warning" style={{width: '47%', height: 40}}
