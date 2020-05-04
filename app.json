@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "1.2.0",
+    "version": "1.3.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -24,6 +24,8 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.hthyaq.mall",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
