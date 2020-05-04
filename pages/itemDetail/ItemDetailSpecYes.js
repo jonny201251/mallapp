@@ -208,7 +208,7 @@ class ItemDetailSpecYes extends Component {
                 <View>
                     <Carousel
                         infinite
-                        style={{height: 300}}
+                        style={{height: 200}}
                     >
                         {
                             sku.images.split(',').map(url => {
@@ -223,11 +223,11 @@ class ItemDetailSpecYes extends Component {
                                 fontSize: 20,
                                 fontWeight: 'bold',
                                 color: '#c81623',
-                                marginTop: 5
+                                marginTop: 2
                             }}>¥{sku.price * this.state.num}</Text>
-                            <Text style={{fontSize: 18, marginTop: 5}}>{sku.title}</Text>
+                            <Text style={{fontSize: 18, marginTop: 2}}>{sku.title}</Text>
                             <Text>{this.state.itemData.subTitle}</Text>
-                            <View style={{flexDirection: 'row', marginBottom: 10}}>
+                            <View style={{flexDirection: 'row', marginBottom: 5}}>
                                 <Text>数量</Text>
                                 <Button size='small' style={{width: 50, marginLeft: 5}}
                                         onPress={() => this.onPress('decrement')}><Text
@@ -296,7 +296,7 @@ class ItemDetailSpecYes extends Component {
                                     </View>
                                 </BottomModal>
                             </View>
-                            <Flex justify="between" style={{marginTop: 15}}>
+                            <Flex justify="between" style={{marginTop: 10}}>
                                 <Button size={'sm'} type="primary" style={{width: '47%', height: 40}}
                                         onPress={() => this.onPress('add')}>加入购物车</Button>
                                 <Button size={'sm'} type="warning" style={{width: '47%', height: 40}}
