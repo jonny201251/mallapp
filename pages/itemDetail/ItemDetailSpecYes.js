@@ -4,7 +4,8 @@ import {Button, Card, Carousel, Flex, Tabs, WingBlank} from '@ant-design/react-n
 import Constants from '../../utils/constants'
 import StorageUtil from '../../utils/StorageUtil'
 import {Actions} from "react-native-router-flux";
-import {Tip, Button as Buttonn, BottomModal} from 'beeshell'
+import {Tip, Button as Buttonn, BottomModal, Stepper} from 'beeshell'
+import variables from '../../customTheme'
 
 const hostPath = Constants.hostPath
 
@@ -200,6 +201,10 @@ class ItemDetailSpecYes extends Component {
         }
     }
 
+    handleChange = (value, oldValue, action) => {
+        this.setState({num: value})
+    }
+
     render() {
         const tabs = [{title: '基本信息'}, {title: '商品详情'}, {title: '规格参数'}];
         let sku = this.state.sku
@@ -227,22 +232,20 @@ class ItemDetailSpecYes extends Component {
                             }}>¥{sku.price * this.state.num}</Text>
                             <Text style={{fontSize: 18, marginTop: 2}}>{sku.title}</Text>
                             <Text>{this.state.itemData.subTitle}</Text>
-                            <View style={{flexDirection: 'row', marginBottom: 5}}>
-                                <Text>数量</Text>
-                                <Button size='small' style={{width: 50, marginLeft: 5}}
-                                        onPress={() => this.onPress('decrement')}><Text
-                                    style={{fontWeight: '700px'}}>-</Text></Button>
-                                <Text style={{
-                                    width: 50,
-                                    backgroundColor: '#F8F8F8',
-                                    textAlign: 'center'
-                                }}>{this.state.num}</Text>
-                                <Button size='small' style={{width: 50}}
-                                        onPress={() => this.onPress('increment')}>+</Button>
+                            <View style={{marginBottom: 10}}>
+                                <Stepper
+                                    value={this.state.num}
+                                    editable={true}
+                                    min={1}
+                                    max={10000000}
+                                    operatorStyle={{backgroundColor: '#188afa', borderRadius: 15}}
+                                    operatorIconColor='#fff'
+                                    onChange={this.handleChange}
+                                />
                             </View>
                             <View>
                                 <Button
-                                    style={{width: 100, height: 30}}
+                                    style={{width: 140, height: 30}}
                                     size='sm'
                                     onPress={() => {
                                         this.bottomModal.open()
@@ -278,18 +281,16 @@ class ItemDetailSpecYes extends Component {
                                             }}>¥{sku.price * this.state.num}</Text>
                                             <Text style={{fontSize: 18, marginTop: 5}}>{sku.title}</Text>
                                             <Text>{this.state.itemData.subTitle}</Text>
-                                            <View style={{flexDirection: 'row', marginBottom: 10}}>
-                                                <Text>数量</Text>
-                                                <Button size='small' style={{width: 50, marginLeft: 5}}
-                                                        onPress={() => this.onPress('decrement')}><Text
-                                                    style={{fontWeight: '700px'}}>-</Text></Button>
-                                                <Text style={{
-                                                    width: 50,
-                                                    backgroundColor: '#F8F8F8',
-                                                    textAlign: 'center'
-                                                }}>{this.state.num}</Text>
-                                                <Button size='small' style={{width: 50}}
-                                                        onPress={() => this.onPress('increment')}>+</Button>
+                                            <View style={{marginBottom: 10}}>
+                                                <Stepper
+                                                    value={this.state.num}
+                                                    editable={true}
+                                                    min={1}
+                                                    max={10000000}
+                                                    operatorStyle={{backgroundColor: '#188afa', borderRadius: 15}}
+                                                    operatorIconColor='#fff'
+                                                    onChange={this.handleChange}
+                                                />
                                             </View>
                                             {this.specialSpec()}
                                         </WingBlank>
