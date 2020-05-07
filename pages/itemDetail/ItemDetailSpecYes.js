@@ -181,7 +181,6 @@ class ItemDetailSpecYes extends Component {
     }
 
     onPresss = (value) => {
-        this.setState({num: 1})
         let skuMap = this.state.skuMap
         let indexes = this.state.indexes
         if (indexes.length === 1) {
