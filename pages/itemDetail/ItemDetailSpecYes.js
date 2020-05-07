@@ -296,7 +296,8 @@ class ItemDetailSpecYes extends Component {
                                     </View>
                                 </BottomModal>
                             </View>
-                            <Flex justify="between" style={{marginTop: 10}}>
+                            <View style={{marginTop: 5}}><Text>{this.state.itemData.company.name}</Text></View>
+                            <Flex justify="between">
                                 <Button size={'sm'} type="primary" style={{width: '47%', height: 40}}
                                         onPress={() => this.onPress('add')}>加入购物车</Button>
                                 <Button size={'sm'} type="warning" style={{width: '47%', height: 40}}

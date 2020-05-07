@@ -54,6 +54,7 @@ class ItemList extends Component {
                 <View style={{justifyContent: 'space-around'}}>
                     <Text style={{fontWeight: 'bold'}}>{item.title}</Text>
                     <Text style={{color: '#c81623'}}>¥{item.tmpPrice}</Text>
+                    <Text>{item.company.name}</Text>
                 </View>
             </View>
         </TouchableHighlight>

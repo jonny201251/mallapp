@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Image, ScrollView, Text, TouchableHighlight, View} from 'react-native'
 import Constants from "../utils/constants"
 import StorageUtil from '../utils/StorageUtil'
-import {Button} from "@ant-design/react-native";
+import {InputItem, Button} from "@ant-design/react-native";
 import {Actions} from "react-native-router-flux";
 import {Tip} from "beeshell";
 
@@ -11,7 +11,8 @@ export default class OrderInfo extends Component {
     state = {
         totalMoney: 0.00,
         length: 0,
-        moneyLimit: 0
+        moneyLimit: 0,
+        value1: '',
     }
     //计算总计
     total = () => {
@@ -81,11 +82,13 @@ export default class OrderInfo extends Component {
 
     submit = () => {
         if (this.state.totalMoney <= this.state.moneyLimit) {
-            fetch(hostPath + '/app/order/create?userId=' + this.state.userId + '&skuIds=' + this.props.skuIds.join(','))
+            fetch(hostPath + '/app/order/create?userId=' + this.state.userId + '&skuIds=' + this.props.skuIds.join(',') + '&taskNum=' + this.state.value1)
                 .then(res => res.json())
                 .then(resp => {
                     if (resp.code === 1) {
                         Actions.MyOrder()
+                    }else{
+                        Tip.show('提交订单-失败了')
                     }
                 })
         } else {
@@ -103,6 +106,18 @@ export default class OrderInfo extends Component {
             <Text style={{color: 'grey', marginLeft: 10}}>
                 {this.state.receiveAddress ? this.state.receiveAddress.address : ''}
             </Text>
+            <InputItem
+                clear
+                value={this.state.value1}
+                onChange={value => {
+                    this.setState({
+                        value1: value,
+                    });
+                }}
+                placeholder="任务号"
+            >
+                任务号
+            </InputItem>
             <ScrollView>
                 {this.renderItem()}
             </ScrollView>
