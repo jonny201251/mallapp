@@ -4,7 +4,7 @@ import {Tabs, Carousel, Flex, Button, WhiteSpace, WingBlank, Card} from '@ant-de
 import Constants from '../../utils/constants'
 import StorageUtil from '../../utils/StorageUtil'
 import {Actions} from "react-native-router-flux"
-import {Checkbox} from 'beeshell'
+import {Checkbox, Button as Buttonn} from 'beeshell'
 
 
 const hostPath = Constants.hostPath
@@ -32,11 +32,16 @@ export default class ShopCart extends Component {
                     .then(resp => {
                         let cartMap = {}
                         let skuIdsAll = []
-                        resp.data.map(cart => {
-                            cartMap[cart.skuId] = cart
-                            skuIdsAll.push(cart.skuId)
-                        })
-                        this.setState({carts: resp.data, cartMap, skuIdsAll}, () => this.total())
+                        if (resp.data) {
+                            resp.data.map(cart => {
+                                cartMap[cart.skuId] = cart
+                                skuIdsAll.push(cart.skuId)
+                            })
+                            this.setState({carts: resp.data, cartMap, skuIdsAll}, () => this.total())
+                        } else {
+                            this.setState({carts: null})
+                        }
+
                     })
             } else {
                 //去登录
@@ -68,7 +73,7 @@ export default class ShopCart extends Component {
 
                 return <TouchableHighlight underlayColor="#fff" onPress={() => {
                     //此处的spuId、skuId有问题，没有考虑到具有特有属性的商品
-                    Actions.itemDetail({spuId: item.skuId+'_skuId'})
+                    Actions.itemDetail({spuId: item.skuId + '_skuId'})
                 }}>
                     <View>
                         <View style={{flexDirection: 'row', padding: 10}}>
@@ -98,6 +103,8 @@ export default class ShopCart extends Component {
                                     <Button size='small' style={{width: 50}}
                                             onPress={() => this.onPress('increment', item.skuId, item.num)}>+</Button>
                                 </View>
+                                <Buttonn type="text" size="sm"
+                                         onPress={() => this.onPress2(item.skuId)}>删除</Buttonn>
                             </View>
                         </View>
                         {this.renderSeparator()}
@@ -106,7 +113,15 @@ export default class ShopCart extends Component {
             })
         }
     }
-
+    onPress2 = (skuId) => {
+        fetch(hostPath + '/app/cart/delete?userId=' + this.state.userId + '&skuId=' + skuId)
+            .then(res => res.json())
+            .then(resp => {
+                if (resp.code === 1) {
+                    this.init()
+                }
+            })
+    }
     onPress = (type, skuId, oldNum) => {
         let newNum = oldNum
         if ("decrement" === type) {
