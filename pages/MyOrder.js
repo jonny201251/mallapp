@@ -10,7 +10,7 @@ const hostPath = Constants.hostPath
 export default class MyOrder extends Component {
     state = {
         currentPage: 1,
-        pageSize: 5,
+        pageSize: 50,
         status: 100, //状态：全部,
         itemNum: {
             '0': 0,
