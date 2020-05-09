@@ -10,7 +10,7 @@ class ItemList extends Component {
     state = {
         keyword: '',
         currentPage: 1,
-        pageSize: 10,
+        pageSize: 100,
         totalPage: 0,
         items: [],
     }
@@ -74,8 +74,8 @@ class ItemList extends Component {
                 data={this.state.items}
                 renderItem={({item}) => this.renderItem(item)} // 调用方法，去渲染每一项
                 ItemSeparatorComponent={this.renderSeparator} //渲染分割线的属性方法
-                onEndReachedThreshold={0.5} // 距离底部还有多远的时候，触发加载更多的事件
-                onEndReached={this.loadNextPage} // 当距离不足 0.5 的时候，触发这个方法，加载下一页数据
+                // onEndReachedThreshold={0.1} // 距离底部还有多远的时候，触发加载更多的事件
+                // onEndReached={this.loadNextPage} // 当距离不足 0.5 的时候，触发这个方法，加载下一页数据
             />
         </View>
     }
